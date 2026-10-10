@@ -1,4 +1,17 @@
-# Project Title (Update)
+# MVP
+
+• Open an existing text file.
+• View its contents.
+• Move around the document.
+• Add and delete text.
+• Save the changes.
+• Create and save a new file.
+• Quit without accidentally losing unsaved work.
+• Receive understandable error messages.
+
+
+
+# File Editor
 
 This is a text editor command line application. It will allow a user to enter a filename to a txt file, then will be 
 allowed to edit the file and then save it back to the location.

@@ -26,11 +26,11 @@ The expected minimum amount of time each Sprint for each category is as follows:
 
 |Date      |Start Time|Category|Description                                 |Total Minutes|
 |----------|----------|:------:|--------------------------------------------|:-----------:|
-| 10/5/26  | 10:15    | MTG    | Planned the next sprint.                   | 60           |
+| 10/5/26  | 10:15    | MTG    | Planned the next sprint.                   | 60          |
 | 10/5/26  | 8:30     | IM     | Learn, CLion, Codex setup, practice code.  | 120         |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+| 10/7/26  | 10:15    | TP     | Worked as a team together.                 | 60          |
+| 10/9/26  | 10:15    | MTG    | Standup and talk about our project.        | 60          |
+| 10/9/26  | 6:30     | IM     |                                            |             |
 |          |          |        |                                            |             |
 
 _Note: Add more rows as needed._
@@ -39,7 +39,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         | 2:00                     |
-|TP - Team Project              |                          |
-|MTG - Class Meetings           | 1:00                     |
-|**TOTAL**                      | 3:00                     |
+|IM - Individual Module         | 2:00/10                  |
+|TP - Team Project              | 1:00/4                   |
+|MTG - Class Meetings           | 2:00/4                   |
+|**TOTAL**                      | 5:00/18                  |
