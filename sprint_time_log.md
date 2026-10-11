@@ -31,6 +31,14 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/7/26  | 10:15    | TP     | Worked as a team together.                 | 60          |
 | 10/9/26  | 10:15    | MTG    | Standup and talk about our project.        | 60          |
 | 10/9/26  | 6:30     | IM     | Setup class scaffolding and learned.       | 60          |
+| 10/10/26 | 11:45    | TP     | UseIdeas hook, learn about React.          | 60          |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
+|          |          |        |                                            |             |
 |          |          |        |                                            |             |
 
 _Note: Add more rows as needed._
@@ -40,6 +48,6 @@ _Note: Add more rows as needed._
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
 |IM - Individual Module         | 3:00/10                  |
-|TP - Team Project              | 1:00/4                   |
+|TP - Team Project              | 2:00/4                   |
 |MTG - Class Meetings           | 2:00/4                   |
 |**TOTAL**                      | 6:00/18                  |
