@@ -1,0 +1,6 @@
+Welcome to the text editor!
+
+This is the second line.
+Try moving around this file.
+Use the arrow keys to move.
+Press q when you are finished.

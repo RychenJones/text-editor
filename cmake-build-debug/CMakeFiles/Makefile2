@@ -85,12 +85,12 @@ clean: CMakeFiles/text_editor.dir/clean
 CMakeFiles/text_editor.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=1,2,3 "Built target text_editor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Built target text_editor"
 .PHONY : CMakeFiles/text_editor.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/text_editor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" 3
+	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/text_editor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" 0
 .PHONY : CMakeFiles/text_editor.dir/rule
@@ -102,7 +102,7 @@ text_editor: CMakeFiles/text_editor.dir/rule
 # codegen rule for target.
 CMakeFiles/text_editor.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=1,2,3 "Finished codegen for target text_editor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=1,2,3,4 "Finished codegen for target text_editor"
 .PHONY : CMakeFiles/text_editor.dir/codegen
 
 # clean rule for target.

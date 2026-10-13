@@ -10,6 +10,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/main.cpp" "CMakeFiles/text_editor.dir/main.cpp.o" "gcc" "CMakeFiles/text_editor.dir/main.cpp.o.d"
   "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileManager.cpp" "CMakeFiles/text_editor.dir/src/FileManager.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/FileManager.cpp.o.d"
+  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TextEditorUI.cpp" "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

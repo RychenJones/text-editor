@@ -8,7 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 add_executable(text_editor
     main.cpp
     src/FileManager.cpp
+    src/TextEditorUI.cpp
     include/FileManager.h
+    include/TextEditorUI.h
 )
 
 target_include_directories(text_editor PRIVATE

@@ -1,4 +1,4 @@
-# MVP
+# MVP Acceptance Criteria
 
 • Open an existing text file.
 • View its contents.

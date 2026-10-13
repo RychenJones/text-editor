@@ -177,6 +177,30 @@ src/FileManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileManager.cpp.s
 .PHONY : src/FileManager.cpp.s
 
+src/TextEditorUI.o: src/TextEditorUI.cpp.o
+.PHONY : src/TextEditorUI.o
+
+# target to build an object file
+src/TextEditorUI.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o
+.PHONY : src/TextEditorUI.cpp.o
+
+src/TextEditorUI.i: src/TextEditorUI.cpp.i
+.PHONY : src/TextEditorUI.i
+
+# target to preprocess a source file
+src/TextEditorUI.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.i
+.PHONY : src/TextEditorUI.cpp.i
+
+src/TextEditorUI.s: src/TextEditorUI.cpp.s
+.PHONY : src/TextEditorUI.s
+
+# target to generate assembly for a file
+src/TextEditorUI.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.s
+.PHONY : src/TextEditorUI.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -192,6 +216,9 @@ help:
 	@echo "... src/FileManager.o"
 	@echo "... src/FileManager.i"
 	@echo "... src/FileManager.s"
+	@echo "... src/TextEditorUI.o"
+	@echo "... src/TextEditorUI.i"
+	@echo "... src/TextEditorUI.s"
 .PHONY : help
 
 

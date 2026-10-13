@@ -3,6 +3,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/text_editor.dir/main.cpp.o.d"
   "CMakeFiles/text_editor.dir/src/FileManager.cpp.o"
   "CMakeFiles/text_editor.dir/src/FileManager.cpp.o.d"
+  "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o"
+  "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o.d"
   "text_editor"
   "text_editor.pdb"
 )
