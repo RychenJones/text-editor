@@ -9,6 +9,7 @@ namespace {
 
 class TerminalMode {
 public:
+    // Switches the terminal to immediate, no-echo input mode.
     bool enable() {
         if (tcgetattr(STDIN_FILENO, &originalMode_) == -1) {
             return false;
@@ -30,6 +31,7 @@ public:
         return true;
     }
 
+    // Restores the terminal settings when the editor exits.
     ~TerminalMode() {
         if (enabled_) {
             tcsetattr(STDIN_FILENO, TCSAFLUSH, &originalMode_);
@@ -43,10 +45,12 @@ private:
 
 } // namespace
 
+// Creates a UI that reads document contents from the file manager.
 TextEditorUI::TextEditorUI(const FileManager& fileManager)
     : fileManager_(fileManager) {
 }
 
+// Runs the interactive editor until the user presses q.
 void TextEditorUI::run() {
     TerminalMode terminalMode;
     if (!terminalMode.enable()) {
@@ -91,6 +95,7 @@ void TextEditorUI::run() {
     std::cout.flush();
 }
 
+// Reads an arrow-key escape sequence or the quit key.
 TextEditorUI::Key TextEditorUI::readKey() const {
     unsigned char firstCharacter;
     if (read(STDIN_FILENO, &firstCharacter, 1) != 1) {
@@ -129,6 +134,7 @@ TextEditorUI::Key TextEditorUI::readKey() const {
     return Key::Unknown;
 }
 
+// Prints the current file contents to the terminal.
 void TextEditorUI::displayContents() const {
     const auto& lines = fileManager_.getLines();
 
@@ -142,10 +148,12 @@ void TextEditorUI::displayContents() const {
     }
 }
 
+// Positions the terminal cursor at the current line and column.
 void TextEditorUI::positionTerminalCursor() const {
     std::cout << "\033[" << cursorLine_ + 1 << ';' << cursorColumn_ + 1 << 'H';
 }
 
+// Moves the cursor up one line when it is not at the top.
 void TextEditorUI::moveUp() {
     if (cursorLine_ > 0) {
         --cursorLine_;
@@ -153,6 +161,7 @@ void TextEditorUI::moveUp() {
     }
 }
 
+// Moves the cursor down one line when it is not at the bottom.
 void TextEditorUI::moveDown() {
     const auto& lines = fileManager_.getLines();
     if (cursorLine_ + 1 < lines.size()) {
@@ -161,12 +170,14 @@ void TextEditorUI::moveDown() {
     }
 }
 
+// Moves the cursor left one character when possible.
 void TextEditorUI::moveLeft() {
     if (cursorColumn_ > 0) {
         --cursorColumn_;
     }
 }
 
+// Moves the cursor right one character when possible.
 void TextEditorUI::moveRight() {
     const auto& lines = fileManager_.getLines();
     if (!lines.empty() && cursorColumn_ < lines[cursorLine_].size()) {
@@ -174,6 +185,7 @@ void TextEditorUI::moveRight() {
     }
 }
 
+// Clamps the cursor column to the length of the current line.
 void TextEditorUI::keepCursorWithinCurrentLine() {
     const auto& lines = fileManager_.getLines();
     if (!lines.empty() && cursorColumn_ > lines[cursorLine_].size()) {

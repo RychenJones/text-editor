@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 
+// Opens the requested file and starts the interactive editor.
 int main(int argc, char* argv[]) {
     FileManager fileManager;
 

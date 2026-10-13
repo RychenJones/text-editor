@@ -6,15 +6,19 @@
 
 class FileManager {
 public:
+    // Creates an empty file manager.
     FileManager() = default;
 
     // Opens an existing text file and loads its contents into memory.
     bool openFile(const std::string& filePath);
 
-    // Temporary test method to confirm the class is working.
+    // Prints a temporary message used to test the file manager.
     void printTestMessage() const;
 
+    // Returns the lines loaded from the current file.
     const std::vector<std::string>& getLines() const;
+
+    // Returns the path of the current file.
     const std::string& getFilePath() const;
 
 private:

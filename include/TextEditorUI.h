@@ -7,6 +7,7 @@
 
 class TextEditorUI {
 public:
+    // Connects the UI to a file manager.
     explicit TextEditorUI(const FileManager& fileManager);
 
     // Starts the interactive terminal editor loop.
@@ -25,12 +26,25 @@ private:
         Unknown
     };
 
+    // Reads the next key pressed by the user.
     Key readKey() const;
+
+    // Moves the terminal cursor to the current document position.
     void positionTerminalCursor() const;
+
+    // Moves the cursor up one line when possible.
     void moveUp();
+
+    // Moves the cursor down one line when possible.
     void moveDown();
+
+    // Moves the cursor left one character when possible.
     void moveLeft();
+
+    // Moves the cursor right one character when possible.
     void moveRight();
+
+    // Keeps the cursor column valid after changing lines.
     void keepCursorWithinCurrentLine();
 
     const FileManager& fileManager_;

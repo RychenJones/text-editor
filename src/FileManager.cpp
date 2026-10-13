@@ -4,6 +4,7 @@
 #include <iostream>
 #include <utility>
 
+// Opens a file and stores its contents and path when successful.
 bool FileManager::openFile(const std::string& filePath) {
     std::ifstream inputFile(filePath);
     if (!inputFile.is_open()) {
@@ -32,14 +33,17 @@ bool FileManager::openFile(const std::string& filePath) {
     return true;
 }
 
+// Prints a temporary message used to verify the class is working.
 void FileManager::printTestMessage() const {
     std::cout << "FileManager is working." << std::endl;
 }
 
+// Returns read-only access to the loaded file lines.
 const std::vector<std::string>& FileManager::getLines() const {
     return lines_;
 }
 
+// Returns read-only access to the current file path.
 const std::string& FileManager::getFilePath() const {
     return filePath_;
 }
