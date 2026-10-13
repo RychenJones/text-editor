@@ -7,6 +7,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(text_editor
     main.cpp
-    FileManager.cpp
-    FileManager.h
+    src/FileManager.cpp
+    include/FileManager.h
+)
+
+target_include_directories(text_editor PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
 )

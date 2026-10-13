@@ -33,7 +33,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/9/26  | 6:30     | IM     | Setup class scaffolding and learned.       | 60          |
 | 10/10/26 | 11:45    | TP     | UseIdeas hook, learn about React.          | 60          |
 | 10/12/26 | 10:15    | TP     | Worked together as a team on the project.  | 60          |
-|          |          |        |                                            |             |
+| 10/13/26 | 1:40     | IM     |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
