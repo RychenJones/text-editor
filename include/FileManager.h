@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <cstddef>
 
 class FileManager {
 public:
@@ -20,6 +21,21 @@ public:
 
     // Returns the path of the current file.
     const std::string& getFilePath() const;
+
+    // Inserts one character at the specified cursor position.
+    bool insertCharacter(std::size_t line,
+                         std::size_t column,
+                         char character);
+
+    // Splits a line at the specified cursor position.
+    bool insertNewline(std::size_t line, std::size_t column);
+
+    // Deletes the character before the cursor, joining lines when necessary.
+    // The cursor position is updated to its new location.
+    bool backspace(std::size_t& line, std::size_t& column);
+
+    // Deletes the character at the cursor, joining lines when necessary.
+    bool deleteForward(std::size_t line, std::size_t column);
 
 private:
     std::string filePath_;

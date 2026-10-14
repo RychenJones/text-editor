@@ -1,5 +1,6 @@
 #include "TextEditorUI.h"
 
+#include <cctype>
 #include <iostream>
 #include <string>
 #include <termios.h>
@@ -46,7 +47,7 @@ private:
 } // namespace
 
 // Creates a UI that reads document contents from the file manager.
-TextEditorUI::TextEditorUI(const FileManager& fileManager)
+TextEditorUI::TextEditorUI(FileManager& fileManager)
     : fileManager_(fileManager) {
 }
 
@@ -66,11 +67,12 @@ void TextEditorUI::run() {
         // Clear the terminal and redraw the document after every key press.
         std::cout << "\033[2J\033[H";
         displayContents();
-        std::cout << "\nUse the arrow keys to move. Press q to quit.\n";
+        std::cout << "\nUse arrow keys to move, type to edit, and press Ctrl-Q to quit.\n";
         positionTerminalCursor();
         std::cout.flush();
 
-        switch (readKey()) {
+        const KeyEvent event = readKey();
+        switch (event.key) {
             case Key::Up:
                 moveUp();
                 break;
@@ -82,6 +84,18 @@ void TextEditorUI::run() {
                 break;
             case Key::Right:
                 moveRight();
+                break;
+            case Key::Character:
+                insertCharacter(event.character);
+                break;
+            case Key::Enter:
+                insertNewline();
+                break;
+            case Key::Backspace:
+                backspace();
+                break;
+            case Key::Delete:
+                deleteForward();
                 break;
             case Key::Quit:
                 running = false;
@@ -95,43 +109,65 @@ void TextEditorUI::run() {
     std::cout.flush();
 }
 
-// Reads an arrow-key escape sequence or the quit key.
-TextEditorUI::Key TextEditorUI::readKey() const {
+// Reads an editing key, arrow-key escape sequence, or the quit key.
+TextEditorUI::KeyEvent TextEditorUI::readKey() const {
     unsigned char firstCharacter;
     if (read(STDIN_FILENO, &firstCharacter, 1) != 1) {
-        return Key::Quit;
+        return {Key::Quit};
     }
 
-    if (firstCharacter == 'q') {
-        return Key::Quit;
+    // Ctrl-Q quits while allowing the user to type the letter q.
+    if (firstCharacter == 0x11) {
+        return {Key::Quit};
+    }
+
+    if (firstCharacter == '\r' || firstCharacter == '\n') {
+        return {Key::Enter};
+    }
+
+    if (firstCharacter == '\b' || firstCharacter == 127) {
+        return {Key::Backspace};
     }
 
     // Arrow keys arrive as escape sequences such as ESC [ A.
     if (firstCharacter == '\033') {
         unsigned char sequence[2];
         if (read(STDIN_FILENO, sequence, sizeof(sequence)) != sizeof(sequence)) {
-            return Key::Unknown;
+            return {Key::Unknown};
         }
 
         if (sequence[0] != '[') {
-            return Key::Unknown;
+            return {Key::Unknown};
+        }
+
+        // The Delete key arrives as ESC [ 3 ~.
+        if (sequence[1] == '3') {
+            unsigned char terminator;
+            if (read(STDIN_FILENO, &terminator, 1) == 1 && terminator == '~') {
+                return {Key::Delete};
+            }
+            return {Key::Unknown};
         }
 
         switch (sequence[1]) {
             case 'A':
-                return Key::Up;
+                return {Key::Up};
             case 'B':
-                return Key::Down;
+                return {Key::Down};
             case 'C':
-                return Key::Right;
+                return {Key::Right};
             case 'D':
-                return Key::Left;
+                return {Key::Left};
             default:
-                return Key::Unknown;
+                return {Key::Unknown};
         }
     }
 
-    return Key::Unknown;
+    if (std::isprint(static_cast<unsigned char>(firstCharacter))) {
+        return {Key::Character, static_cast<char>(firstCharacter)};
+    }
+
+    return {Key::Unknown};
 }
 
 // Prints the current file contents to the terminal.
@@ -191,4 +227,25 @@ void TextEditorUI::keepCursorWithinCurrentLine() {
     if (!lines.empty() && cursorColumn_ > lines[cursorLine_].size()) {
         cursorColumn_ = lines[cursorLine_].size();
     }
+}
+
+void TextEditorUI::insertCharacter(char character) {
+    if (fileManager_.insertCharacter(cursorLine_, cursorColumn_, character)) {
+        ++cursorColumn_;
+    }
+}
+
+void TextEditorUI::insertNewline() {
+    if (fileManager_.insertNewline(cursorLine_, cursorColumn_)) {
+        ++cursorLine_;
+        cursorColumn_ = 0;
+    }
+}
+
+void TextEditorUI::backspace() {
+    fileManager_.backspace(cursorLine_, cursorColumn_);
+}
+
+void TextEditorUI::deleteForward() {
+    fileManager_.deleteForward(cursorLine_, cursorColumn_);
 }

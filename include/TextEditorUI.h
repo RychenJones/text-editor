@@ -8,7 +8,7 @@
 class TextEditorUI {
 public:
     // Connects the UI to a file manager.
-    explicit TextEditorUI(const FileManager& fileManager);
+    explicit TextEditorUI(FileManager& fileManager);
 
     // Starts the interactive terminal editor loop.
     void run();
@@ -22,12 +22,21 @@ private:
         Down,
         Left,
         Right,
+        Character,
+        Enter,
+        Backspace,
+        Delete,
         Quit,
         Unknown
     };
 
+    struct KeyEvent {
+        Key key;
+        char character = '\0';
+    };
+
     // Reads the next key pressed by the user.
-    Key readKey() const;
+    KeyEvent readKey() const;
 
     // Moves the terminal cursor to the current document position.
     void positionTerminalCursor() const;
@@ -47,7 +56,13 @@ private:
     // Keeps the cursor column valid after changing lines.
     void keepCursorWithinCurrentLine();
 
-    const FileManager& fileManager_;
+    // Applies text-editing commands at the current cursor position.
+    void insertCharacter(char character);
+    void insertNewline();
+    void backspace();
+    void deleteForward();
+
+    FileManager& fileManager_;
     std::size_t cursorLine_ = 0;
     std::size_t cursorColumn_ = 0;
 };

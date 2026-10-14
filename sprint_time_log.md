@@ -34,7 +34,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/10/26 | 11:45    | TP     | UseIdeas hook, learn about React.          | 60          |
 | 10/12/26 | 10:15    | TP     | Worked together as a team on the project.  | 60          |
 | 10/13/26 | 1:40     | IM     | Started building the terminal UI and logic | 70          |
-|          |          |        |                                            |             |
+| 10/13/26 | 10:45    | IM     |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
