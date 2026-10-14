@@ -51,7 +51,7 @@ TextEditorUI::TextEditorUI(FileManager& fileManager)
     : fileManager_(fileManager) {
 }
 
-// Runs the interactive editor until the user presses q.
+// Runs the interactive editor until the user presses Ctrl-Q.
 void TextEditorUI::run() {
     TerminalMode terminalMode;
     if (!terminalMode.enable()) {
@@ -67,11 +67,17 @@ void TextEditorUI::run() {
         // Clear the terminal and redraw the document after every key press.
         std::cout << "\033[2J\033[H";
         displayContents();
-        std::cout << "\nUse arrow keys to move, type to edit, and press Ctrl-Q to quit.\n";
+        std::cout << "\nUse arrows to move, type to edit, Ctrl-S to save, and Ctrl-Q to quit.\n";
+        if (!statusMessage_.empty()) {
+            std::cout << statusMessage_ << '\n';
+        }
         positionTerminalCursor();
         std::cout.flush();
 
         const KeyEvent event = readKey();
+        if (event.key != Key::Save) {
+            statusMessage_.clear();
+        }
         switch (event.key) {
             case Key::Up:
                 moveUp();
@@ -97,8 +103,17 @@ void TextEditorUI::run() {
             case Key::Delete:
                 deleteForward();
                 break;
+            case Key::Save:
+                if (fileManager_.saveFile()) {
+                    statusMessage_ = "Changes saved to " + fileManager_.getFilePath();
+                } else {
+                    statusMessage_ = "Unable to save changes to " + fileManager_.getFilePath();
+                }
+                break;
             case Key::Quit:
-                running = false;
+                if (!fileManager_.hasUnsavedChanges() || confirmQuitWithoutSaving()) {
+                    running = false;
+                }
                 break;
             case Key::Unknown:
                 break;
@@ -107,6 +122,20 @@ void TextEditorUI::run() {
 
     std::cout << "\033[?25h\033[0m\n"; // Show the terminal cursor again.
     std::cout.flush();
+}
+
+bool TextEditorUI::confirmQuitWithoutSaving() const {
+    std::cout << "\nUnsaved changes. Quit without saving? [y/n] ";
+    std::cout.flush();
+
+    unsigned char response;
+    if (read(STDIN_FILENO, &response, 1) != 1) {
+        std::cout << '\n';
+        return false;
+    }
+
+    std::cout << static_cast<char>(response) << '\n';
+    return response == 'y' || response == 'Y';
 }
 
 // Reads an editing key, arrow-key escape sequence, or the quit key.
@@ -119,6 +148,10 @@ TextEditorUI::KeyEvent TextEditorUI::readKey() const {
     // Ctrl-Q quits while allowing the user to type the letter q.
     if (firstCharacter == 0x11) {
         return {Key::Quit};
+    }
+
+    if (firstCharacter == 0x13) {
+        return {Key::Save};
     }
 
     if (firstCharacter == '\r' || firstCharacter == '\n') {

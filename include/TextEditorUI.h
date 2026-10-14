@@ -4,6 +4,7 @@
 #include "FileManager.h"
 
 #include <cstddef>
+#include <string>
 
 class TextEditorUI {
 public:
@@ -26,6 +27,7 @@ private:
         Enter,
         Backspace,
         Delete,
+        Save,
         Quit,
         Unknown
     };
@@ -37,6 +39,9 @@ private:
 
     // Reads the next key pressed by the user.
     KeyEvent readKey() const;
+
+    // Asks whether the user wants to leave with unsaved changes.
+    bool confirmQuitWithoutSaving() const;
 
     // Moves the terminal cursor to the current document position.
     void positionTerminalCursor() const;
@@ -65,6 +70,7 @@ private:
     FileManager& fileManager_;
     std::size_t cursorLine_ = 0;
     std::size_t cursorColumn_ = 0;
+    std::string statusMessage_;
 };
 
 #endif // TEXT_EDITOR_UI_H
