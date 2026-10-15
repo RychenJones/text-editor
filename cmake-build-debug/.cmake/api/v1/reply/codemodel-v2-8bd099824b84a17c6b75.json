@@ -16,7 +16,8 @@
 					"source" : ".",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -31,7 +32,8 @@
 					"name" : "text_editor",
 					"targetIndexes" : 
 					[
-						0
+						0,
+						1
 					]
 				}
 			],
@@ -39,8 +41,15 @@
 			[
 				{
 					"directoryIndex" : 0,
+					"id" : "document_tests::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-document_tests-Debug-560a19dc6385e380b030.json",
+					"name" : "document_tests",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
 					"id" : "text_editor::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-text_editor-Debug-d6a5f356f64b4b077ef7.json",
+					"jsonFile" : "target-text_editor-Debug-895b5619cc750749a161.json",
 					"name" : "text_editor",
 					"projectIndex" : 0
 				}

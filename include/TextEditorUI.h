@@ -1,76 +1,64 @@
 #ifndef TEXT_EDITOR_UI_H
 #define TEXT_EDITOR_UI_H
 
-#include "FileManager.h"
+#include "CursorPosition.h"
+#include "Document.h"
+#include "FileStorage.h"
+#include "KeyReader.h"
+#include "TerminalRenderer.h"
 
-#include <cstddef>
+#include <filesystem>
 #include <string>
 
+// Coordinates terminal input, the document model, storage, and rendering.
 class TextEditorUI {
 public:
-    // Connects the UI to a file manager.
-    explicit TextEditorUI(FileManager& fileManager);
+    // Connects the editor UI to its document, storage, and file path.
+    TextEditorUI(Document& document,
+                 FileStorage& fileStorage,
+                 std::filesystem::path filePath);
 
     // Starts the interactive terminal editor loop.
-    void run();
-
-    // Prints the contents and current cursor position to the terminal.
-    void displayContents() const;
+    void runEditor();
 
 private:
-    enum class Key {
-        Up,
-        Down,
-        Left,
-        Right,
-        Character,
-        Enter,
-        Backspace,
-        Delete,
-        Save,
-        Quit,
-        Unknown
-    };
-
-    struct KeyEvent {
-        Key key;
-        char character = '\0';
-    };
-
-    // Reads the next key pressed by the user.
-    KeyEvent readKey() const;
-
-    // Asks whether the user wants to leave with unsaved changes.
+    // Confirms whether the user wants to quit with unsaved changes.
     bool confirmQuitWithoutSaving() const;
 
-    // Moves the terminal cursor to the current document position.
-    void positionTerminalCursor() const;
-
-    // Moves the cursor up one line when possible.
+    // Moves the cursor one line upward.
     void moveUp();
 
-    // Moves the cursor down one line when possible.
+    // Moves the cursor one line downward.
     void moveDown();
 
-    // Moves the cursor left one character when possible.
+    // Moves the cursor one character left.
     void moveLeft();
 
-    // Moves the cursor right one character when possible.
+    // Moves the cursor one character right.
     void moveRight();
 
-    // Keeps the cursor column valid after changing lines.
+    // Keeps the cursor within the length of its current line.
     void keepCursorWithinCurrentLine();
 
-    // Applies text-editing commands at the current cursor position.
+    // Inserts one character through the document model.
     void insertCharacter(char character);
+
+    // Inserts a newline through the document model.
     void insertNewline();
+
+    // Deletes behind the cursor through the document model.
     void backspace();
+
+    // Deletes ahead of the cursor through the document model.
     void deleteForward();
 
-    FileManager& fileManager_;
-    std::size_t cursorLine_ = 0;
-    std::size_t cursorColumn_ = 0;
+    Document& document_;
+    FileStorage& fileStorage_;
+    std::filesystem::path filePath_;
+    CursorPosition cursor_;
     std::string statusMessage_;
+    KeyReader keyReader_;
+    TerminalRenderer renderer_;
 };
 
 #endif // TEXT_EDITOR_UI_H

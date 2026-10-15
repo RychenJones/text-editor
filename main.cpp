@@ -1,13 +1,17 @@
-#include "FileManager.h"
+#include "Document.h"
+#include "FileStorage.h"
 #include "TextEditorUI.h"
 
+#include <filesystem>
 #include <iostream>
 #include <string>
 
 namespace {
 
 // Presents the startup choices and prepares the selected document.
-bool chooseDocument(FileManager& fileManager) {
+bool chooseDocument(FileStorage& fileStorage,
+                    Document& document,
+                    std::filesystem::path& filePath) {
     while (true) {
         std::cout << "Text Editor\n"
                   << "1. Create a new file\n"
@@ -30,44 +34,43 @@ bool chooseDocument(FileManager& fileManager) {
         }
 
         std::cout << "Enter the file path: ";
-        std::string filePath;
-        if (!std::getline(std::cin, filePath)) {
+        std::string pathInput;
+        if (!std::getline(std::cin, pathInput)) {
             return false;
         }
 
+        filePath = pathInput;
         if (filePath.empty()) {
             std::cout << "The file path cannot be empty.\n\n";
             continue;
         }
 
-        if (choice == "1") {
-            if (fileManager.createFile(filePath)) {
-                return true;
-            }
-
-            std::cout << "Unable to create a new file. It may already exist "
-                      << "or the path may be invalid.\n\n";
-        } else if (fileManager.openFile(filePath)) {
+        const bool prepared = choice == "1"
+                                  ? fileStorage.createFile(filePath, document)
+                                  : fileStorage.openFile(filePath, document);
+        if (prepared) {
             return true;
-        } else {
-            std::cout << "Unable to open existing file: " << filePath << "\n\n";
         }
+
+        std::cout << fileStorage.getLastError() << "\n\n";
     }
 }
 
 } // namespace
 
-// Presents the startup menu and starts the interactive editor.
+// Shows the startup menu and launches a fresh editor session for each file.
 int main() {
     while (true) {
-        FileManager fileManager;
+        FileStorage fileStorage;
+        Document document;
+        std::filesystem::path filePath;
 
-        if (!chooseDocument(fileManager)) {
+        if (!chooseDocument(fileStorage, document, filePath)) {
             return 0;
         }
 
-        TextEditorUI ui(fileManager);
-        ui.run();
+        TextEditorUI ui(document, fileStorage, filePath);
+        ui.runEditor();
 
         std::cout << "\nReturning to the main menu.\n\n";
     }

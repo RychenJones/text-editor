@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/C
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "No interactive CMake dialog available..."
@@ -129,6 +139,19 @@ text_editor/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/build
 .PHONY : text_editor/fast
 
+#=============================================================================
+# Target rules for targets named document_tests
+
+# Build rule for target.
+document_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 document_tests
+.PHONY : document_tests
+
+# fast build rule for target.
+document_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/build
+.PHONY : document_tests/fast
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -153,29 +176,104 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/main.cpp.s
 .PHONY : main.cpp.s
 
-src/FileManager.o: src/FileManager.cpp.o
-.PHONY : src/FileManager.o
+src/Document.o: src/Document.cpp.o
+.PHONY : src/Document.o
 
 # target to build an object file
-src/FileManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileManager.cpp.o
-.PHONY : src/FileManager.cpp.o
+src/Document.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.o
+.PHONY : src/Document.cpp.o
 
-src/FileManager.i: src/FileManager.cpp.i
-.PHONY : src/FileManager.i
+src/Document.i: src/Document.cpp.i
+.PHONY : src/Document.i
 
 # target to preprocess a source file
-src/FileManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileManager.cpp.i
-.PHONY : src/FileManager.cpp.i
+src/Document.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.i
+.PHONY : src/Document.cpp.i
 
-src/FileManager.s: src/FileManager.cpp.s
-.PHONY : src/FileManager.s
+src/Document.s: src/Document.cpp.s
+.PHONY : src/Document.s
 
 # target to generate assembly for a file
-src/FileManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileManager.cpp.s
-.PHONY : src/FileManager.cpp.s
+src/Document.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.s
+.PHONY : src/Document.cpp.s
+
+src/FileStorage.o: src/FileStorage.cpp.o
+.PHONY : src/FileStorage.o
+
+# target to build an object file
+src/FileStorage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileStorage.cpp.o
+.PHONY : src/FileStorage.cpp.o
+
+src/FileStorage.i: src/FileStorage.cpp.i
+.PHONY : src/FileStorage.i
+
+# target to preprocess a source file
+src/FileStorage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileStorage.cpp.i
+.PHONY : src/FileStorage.cpp.i
+
+src/FileStorage.s: src/FileStorage.cpp.s
+.PHONY : src/FileStorage.s
+
+# target to generate assembly for a file
+src/FileStorage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/FileStorage.cpp.s
+.PHONY : src/FileStorage.cpp.s
+
+src/KeyReader.o: src/KeyReader.cpp.o
+.PHONY : src/KeyReader.o
+
+# target to build an object file
+src/KeyReader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/KeyReader.cpp.o
+.PHONY : src/KeyReader.cpp.o
+
+src/KeyReader.i: src/KeyReader.cpp.i
+.PHONY : src/KeyReader.i
+
+# target to preprocess a source file
+src/KeyReader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/KeyReader.cpp.i
+.PHONY : src/KeyReader.cpp.i
+
+src/KeyReader.s: src/KeyReader.cpp.s
+.PHONY : src/KeyReader.s
+
+# target to generate assembly for a file
+src/KeyReader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/KeyReader.cpp.s
+.PHONY : src/KeyReader.cpp.s
+
+src/TerminalRenderer.o: src/TerminalRenderer.cpp.o
+.PHONY : src/TerminalRenderer.o
+
+# target to build an object file
+src/TerminalRenderer.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o
+.PHONY : src/TerminalRenderer.cpp.o
+
+src/TerminalRenderer.i: src/TerminalRenderer.cpp.i
+.PHONY : src/TerminalRenderer.i
+
+# target to preprocess a source file
+src/TerminalRenderer.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.i
+.PHONY : src/TerminalRenderer.cpp.i
+
+src/TerminalRenderer.s: src/TerminalRenderer.cpp.s
+.PHONY : src/TerminalRenderer.s
+
+# target to generate assembly for a file
+src/TerminalRenderer.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.s
+.PHONY : src/TerminalRenderer.cpp.s
 
 src/TextEditorUI.o: src/TextEditorUI.cpp.o
 .PHONY : src/TextEditorUI.o
@@ -201,6 +299,30 @@ src/TextEditorUI.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.s
 .PHONY : src/TextEditorUI.cpp.s
 
+tests/DocumentTests.o: tests/DocumentTests.cpp.o
+.PHONY : tests/DocumentTests.o
+
+# target to build an object file
+tests/DocumentTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/tests/DocumentTests.cpp.o
+.PHONY : tests/DocumentTests.cpp.o
+
+tests/DocumentTests.i: tests/DocumentTests.cpp.i
+.PHONY : tests/DocumentTests.i
+
+# target to preprocess a source file
+tests/DocumentTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/tests/DocumentTests.cpp.i
+.PHONY : tests/DocumentTests.cpp.i
+
+tests/DocumentTests.s: tests/DocumentTests.cpp.s
+.PHONY : tests/DocumentTests.s
+
+# target to generate assembly for a file
+tests/DocumentTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/tests/DocumentTests.cpp.s
+.PHONY : tests/DocumentTests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -209,16 +331,30 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... document_tests"
 	@echo "... text_editor"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
-	@echo "... src/FileManager.o"
-	@echo "... src/FileManager.i"
-	@echo "... src/FileManager.s"
+	@echo "... src/Document.o"
+	@echo "... src/Document.i"
+	@echo "... src/Document.s"
+	@echo "... src/FileStorage.o"
+	@echo "... src/FileStorage.i"
+	@echo "... src/FileStorage.s"
+	@echo "... src/KeyReader.o"
+	@echo "... src/KeyReader.i"
+	@echo "... src/KeyReader.s"
+	@echo "... src/TerminalRenderer.o"
+	@echo "... src/TerminalRenderer.i"
+	@echo "... src/TerminalRenderer.s"
 	@echo "... src/TextEditorUI.o"
 	@echo "... src/TextEditorUI.i"
 	@echo "... src/TextEditorUI.s"
+	@echo "... tests/DocumentTests.o"
+	@echo "... tests/DocumentTests.i"
+	@echo "... tests/DocumentTests.s"
 .PHONY : help
 
 

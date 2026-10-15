@@ -9,7 +9,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/main.cpp" "CMakeFiles/text_editor.dir/main.cpp.o" "gcc" "CMakeFiles/text_editor.dir/main.cpp.o.d"
-  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileManager.cpp" "CMakeFiles/text_editor.dir/src/FileManager.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/FileManager.cpp.o.d"
+  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/Document.cpp" "CMakeFiles/text_editor.dir/src/Document.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/Document.cpp.o.d"
+  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileStorage.cpp" "CMakeFiles/text_editor.dir/src/FileStorage.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/FileStorage.cpp.o.d"
+  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/KeyReader.cpp" "CMakeFiles/text_editor.dir/src/KeyReader.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/KeyReader.cpp.o.d"
+  "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TerminalRenderer.cpp" "CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o.d"
   "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TextEditorUI.cpp" "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o" "gcc" "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o.d"
   )
 

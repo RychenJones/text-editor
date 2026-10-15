@@ -86,24 +86,66 @@ CMakeFiles/text_editor.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/main.cpp" -o CMakeFiles/text_editor.dir/main.cpp.s
 
-CMakeFiles/text_editor.dir/src/FileManager.cpp.o: CMakeFiles/text_editor.dir/flags.make
-CMakeFiles/text_editor.dir/src/FileManager.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/FileManager.cpp
-CMakeFiles/text_editor.dir/src/FileManager.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/text_editor.dir/src/FileManager.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/FileManager.cpp.o -MF CMakeFiles/text_editor.dir/src/FileManager.cpp.o.d -o CMakeFiles/text_editor.dir/src/FileManager.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileManager.cpp"
+CMakeFiles/text_editor.dir/src/Document.cpp.o: CMakeFiles/text_editor.dir/flags.make
+CMakeFiles/text_editor.dir/src/Document.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/Document.cpp
+CMakeFiles/text_editor.dir/src/Document.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/text_editor.dir/src/Document.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/Document.cpp.o -MF CMakeFiles/text_editor.dir/src/Document.cpp.o.d -o CMakeFiles/text_editor.dir/src/Document.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/Document.cpp"
 
-CMakeFiles/text_editor.dir/src/FileManager.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/text_editor.dir/src/FileManager.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileManager.cpp" > CMakeFiles/text_editor.dir/src/FileManager.cpp.i
+CMakeFiles/text_editor.dir/src/Document.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/text_editor.dir/src/Document.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/Document.cpp" > CMakeFiles/text_editor.dir/src/Document.cpp.i
 
-CMakeFiles/text_editor.dir/src/FileManager.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/src/FileManager.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileManager.cpp" -o CMakeFiles/text_editor.dir/src/FileManager.cpp.s
+CMakeFiles/text_editor.dir/src/Document.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/src/Document.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/Document.cpp" -o CMakeFiles/text_editor.dir/src/Document.cpp.s
+
+CMakeFiles/text_editor.dir/src/FileStorage.cpp.o: CMakeFiles/text_editor.dir/flags.make
+CMakeFiles/text_editor.dir/src/FileStorage.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/FileStorage.cpp
+CMakeFiles/text_editor.dir/src/FileStorage.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/text_editor.dir/src/FileStorage.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/FileStorage.cpp.o -MF CMakeFiles/text_editor.dir/src/FileStorage.cpp.o.d -o CMakeFiles/text_editor.dir/src/FileStorage.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileStorage.cpp"
+
+CMakeFiles/text_editor.dir/src/FileStorage.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/text_editor.dir/src/FileStorage.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileStorage.cpp" > CMakeFiles/text_editor.dir/src/FileStorage.cpp.i
+
+CMakeFiles/text_editor.dir/src/FileStorage.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/src/FileStorage.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/FileStorage.cpp" -o CMakeFiles/text_editor.dir/src/FileStorage.cpp.s
+
+CMakeFiles/text_editor.dir/src/KeyReader.cpp.o: CMakeFiles/text_editor.dir/flags.make
+CMakeFiles/text_editor.dir/src/KeyReader.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/KeyReader.cpp
+CMakeFiles/text_editor.dir/src/KeyReader.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/text_editor.dir/src/KeyReader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/KeyReader.cpp.o -MF CMakeFiles/text_editor.dir/src/KeyReader.cpp.o.d -o CMakeFiles/text_editor.dir/src/KeyReader.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/KeyReader.cpp"
+
+CMakeFiles/text_editor.dir/src/KeyReader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/text_editor.dir/src/KeyReader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/KeyReader.cpp" > CMakeFiles/text_editor.dir/src/KeyReader.cpp.i
+
+CMakeFiles/text_editor.dir/src/KeyReader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/src/KeyReader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/KeyReader.cpp" -o CMakeFiles/text_editor.dir/src/KeyReader.cpp.s
+
+CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o: CMakeFiles/text_editor.dir/flags.make
+CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/TerminalRenderer.cpp
+CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o -MF CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o.d -o CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TerminalRenderer.cpp"
+
+CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TerminalRenderer.cpp" > CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.i
+
+CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TerminalRenderer.cpp" -o CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.s
 
 CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o: CMakeFiles/text_editor.dir/flags.make
 CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o: /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/src/TextEditorUI.cpp
 CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o: CMakeFiles/text_editor.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o -MF CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o.d -o CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o -c "/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/src/TextEditorUI.cpp"
 
 CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.i: cmake_force
@@ -117,18 +159,24 @@ CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.s: cmake_force
 # Object files for target text_editor
 text_editor_OBJECTS = \
 "CMakeFiles/text_editor.dir/main.cpp.o" \
-"CMakeFiles/text_editor.dir/src/FileManager.cpp.o" \
+"CMakeFiles/text_editor.dir/src/Document.cpp.o" \
+"CMakeFiles/text_editor.dir/src/FileStorage.cpp.o" \
+"CMakeFiles/text_editor.dir/src/KeyReader.cpp.o" \
+"CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o" \
 "CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o"
 
 # External object files for target text_editor
 text_editor_EXTERNAL_OBJECTS =
 
 text_editor: CMakeFiles/text_editor.dir/main.cpp.o
-text_editor: CMakeFiles/text_editor.dir/src/FileManager.cpp.o
+text_editor: CMakeFiles/text_editor.dir/src/Document.cpp.o
+text_editor: CMakeFiles/text_editor.dir/src/FileStorage.cpp.o
+text_editor: CMakeFiles/text_editor.dir/src/KeyReader.cpp.o
+text_editor: CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o
 text_editor: CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o
 text_editor: CMakeFiles/text_editor.dir/build.make
 text_editor: CMakeFiles/text_editor.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable text_editor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir="/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles" --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable text_editor"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/text_editor.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -35,8 +35,8 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/12/26 | 10:15    | TP     | Worked together as a team on the project.  | 60          |
 | 10/13/26 | 1:40     | IM     | Started building the terminal UI and logic | 70          |
 | 10/13/26 | 10:45    | IM     | Main menu, file saving and creation.       | 50          |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+| 10/14/26 | 10:15    | MTG    | Presentations.                             | 60          |
+| 10/14/26 | 7:00     | IM     | Understood code and worked on organization | 50          |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
@@ -47,7 +47,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         | 5:00/10                  |
+|IM - Individual Module         | 5:50/10                  |
 |TP - Team Project              | 3:00/4                   |
-|MTG - Class Meetings           | 2:00/4                   |
-|**TOTAL**                      | 9:00/18                  |
+|MTG - Class Meetings           | 3:00/4                   |
+|**TOTAL**                      | 10:50/18                  |

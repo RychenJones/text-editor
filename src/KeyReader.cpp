@@ -1,0 +1,152 @@
+#include "KeyReader.h"
+
+#include <cctype>
+#include <termios.h>
+#include <unistd.h>
+
+struct KeyReader::TerminalState {
+    termios originalMode{};
+    bool enabled = false;
+};
+
+// Creates a key reader without changing terminal settings.
+KeyReader::KeyReader() = default;
+
+namespace {
+
+class TerminalMode {
+public:
+    // Switches the terminal to immediate, no-echo input mode.
+    bool enableRawMode(termios& originalMode) {
+        if (tcgetattr(STDIN_FILENO, &originalMode) == -1) {
+            return false;
+        }
+
+        termios interactiveMode = originalMode;
+        interactiveMode.c_lflag &= ~(ICANON | ECHO);
+        interactiveMode.c_iflag &= ~(IXON | ICRNL);
+        // Keep normal output processing so '\n' returns to column 1 on each row.
+        interactiveMode.c_oflag |= (OPOST | ONLCR);
+        interactiveMode.c_cc[VMIN] = 1;
+        interactiveMode.c_cc[VTIME] = 0;
+
+        return tcsetattr(STDIN_FILENO, TCSAFLUSH, &interactiveMode) != -1;
+    }
+
+    // Restores the terminal settings saved before raw input was enabled.
+    static void restore(const termios& originalMode) {
+        tcsetattr(STDIN_FILENO, TCSAFLUSH, &originalMode);
+    }
+};
+
+} // namespace
+
+// Enables raw terminal input once and remembers the original settings.
+bool KeyReader::enableRawInput() {
+    if (terminalState_ && terminalState_->enabled) {
+        return true;
+    }
+
+    if (!terminalState_) {
+        terminalState_ = std::make_unique<TerminalState>();
+    }
+
+    TerminalMode terminalMode;
+    if (!terminalMode.enableRawMode(terminalState_->originalMode)) {
+        terminalState_.reset();
+        return false;
+    }
+
+    terminalState_->enabled = true;
+    return true;
+}
+
+// Reads one byte from standard input.
+std::optional<unsigned char> KeyReader::readByte() const {
+    unsigned char value = 0;
+    if (read(STDIN_FILENO, &value, 1) != 1) {
+        return std::nullopt;
+    }
+
+    return value;
+}
+
+// Reads one character without interpreting special key sequences.
+std::optional<char> KeyReader::readCharacter() const {
+    const auto value = readByte();
+    if (!value.has_value()) {
+        return std::nullopt;
+    }
+
+    return static_cast<char>(*value);
+}
+
+// Reads terminal input and converts it into an editor key event.
+KeyEvent KeyReader::readKey() const {
+    const auto firstCharacter = readByte();
+    if (!firstCharacter.has_value()) {
+        return {Key::Quit};
+    }
+
+    // Ctrl-Q quits while allowing the user to type the letter q.
+    if (*firstCharacter == 0x11) {
+        return {Key::Quit};
+    }
+
+    if (*firstCharacter == 0x13) {
+        return {Key::Save};
+    }
+
+    if (*firstCharacter == '\r' || *firstCharacter == '\n') {
+        return {Key::Enter};
+    }
+
+    if (*firstCharacter == '\b' || *firstCharacter == 127) {
+        return {Key::Backspace};
+    }
+
+    // Arrow keys arrive as escape sequences such as ESC [ A.
+    if (*firstCharacter == '\033') {
+        const auto openingBracket = readByte();
+        const auto sequence = readByte();
+        if (!openingBracket.has_value() || !sequence.has_value() ||
+            *openingBracket != '[') {
+            return {Key::Unknown};
+        }
+
+        // The Delete key arrives as ESC [ 3 ~.
+        if (*sequence == '3') {
+            const auto terminator = readByte();
+            if (terminator.has_value() && *terminator == '~') {
+                return {Key::Delete};
+            }
+            return {Key::Unknown};
+        }
+
+        switch (*sequence) {
+            case 'A':
+                return {Key::Up};
+            case 'B':
+                return {Key::Down};
+            case 'C':
+                return {Key::Right};
+            case 'D':
+                return {Key::Left};
+            default:
+                return {Key::Unknown};
+        }
+    }
+
+    if (std::isprint(*firstCharacter)) {
+        return {Key::Character, static_cast<char>(*firstCharacter)};
+    }
+
+    return {Key::Unknown};
+}
+
+// Restores terminal settings when the reader goes out of scope.
+KeyReader::~KeyReader() {
+    if (terminalState_ && terminalState_->enabled) {
+        TerminalMode::restore(terminalState_->originalMode);
+    }
+}

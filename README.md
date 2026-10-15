@@ -9,6 +9,12 @@
 • Quit without accidentally losing unsaved work.
 • Receive understandable error messages.
 
+Hour 6: better organization, update README, understand code
+Hour 7: Understand code
+Hour 8: Look into a GUI
+Hour 9: Understand code
+Hour 10: Finish touches
+
 
 
 # File Editor
