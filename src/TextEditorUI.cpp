@@ -70,6 +70,12 @@ void TextEditorUI::runEditor() {
                     statusMessage_ = fileStorage_.getLastError();
                 }
                 break;
+            case Key::Undo:
+                document_.undo(cursor_);
+                break;
+            case Key::Redo:
+                document_.redo(cursor_);
+                break;
             case Key::Quit:
                 if (!document_.hasUnsavedChanges() || confirmQuitWithoutSaving()) {
                     running = false;

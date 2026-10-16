@@ -37,7 +37,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/13/26 | 10:45    | IM     | Main menu, file saving and creation.       | 50          |
 | 10/14/26 | 10:15    | MTG    | Presentations.                             | 60          |
 | 10/14/26 | 7:00     | IM     | Understood code and worked on organization | 50          |
-| 10/15/26 | 7:40     | IM     |                                            |             |
+| 10/15/26 | 7:40     | IM     | Viewport, status bar, and history.         | 70          |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 
@@ -47,7 +47,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         | 5:50/10                  |
+|IM - Individual Module         | 7:00/10                  |
 |TP - Team Project              | 3:00/4                   |
 |MTG - Class Meetings           | 3:00/4                   |
-|**TOTAL**                      | 10:50/18                  |
+|**TOTAL**                      | 13:00/18                  |

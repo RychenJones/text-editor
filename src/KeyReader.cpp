@@ -23,7 +23,9 @@ public:
         }
 
         termios interactiveMode = originalMode;
-        interactiveMode.c_lflag &= ~(ICANON | ECHO);
+        // Disable terminal-generated signals and extended control handling so
+        // Ctrl-Z and Ctrl-Y reach read() as editor commands.
+        interactiveMode.c_lflag &= ~(ICANON | ECHO | ISIG | IEXTEN);
         interactiveMode.c_iflag &= ~(IXON | ICRNL);
         // Keep normal output processing so '\n' returns to column 1 on each row.
         interactiveMode.c_oflag |= (OPOST | ONLCR);
@@ -95,6 +97,14 @@ KeyEvent KeyReader::readKey() const {
 
     if (*firstCharacter == 0x13) {
         return {Key::Save};
+    }
+
+    if (*firstCharacter == 0x1A) {
+        return {Key::Undo};
+    }
+
+    if (*firstCharacter == 0x19) {
+        return {Key::Redo};
     }
 
     if (*firstCharacter == '\r' || *firstCharacter == '\n') {

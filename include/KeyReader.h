@@ -14,6 +14,8 @@ enum class Key {
     Backspace,
     Delete,
     Save,
+    Undo,
+    Redo,
     Quit,
     Unknown
 };

@@ -34,6 +34,39 @@ int main() {
     assert((document.getLines() == std::vector<std::string>{"abdef"}));
     assert(cursor.line == 0 && cursor.column == 2);
 
+    assert(document.undo(cursor));
+    assert((document.getLines() == std::vector<std::string>{"abcdef"}));
+    assert(cursor.line == 0 && cursor.column == 3);
+    assert(document.undo(cursor));
+    assert((document.getLines() == std::vector<std::string>{"abc", "def"}));
+    assert(cursor.line == 0 && cursor.column == 3);
+    assert(document.redo(cursor));
+    assert((document.getLines() == std::vector<std::string>{"abcdef"}));
+    assert(cursor.line == 0 && cursor.column == 3);
+    assert(document.redo(cursor));
+    assert((document.getLines() == std::vector<std::string>{"abdef"}));
+    assert(cursor.line == 0 && cursor.column == 2);
+    assert(!document.redo(cursor));
+
+    document.replaceLines({"saved"});
+    cursor = {0, 5};
+    assert(document.insertCharacter(cursor, '!'));
+    assert(document.hasUnsavedChanges());
+    assert(document.undo(cursor));
+    assert(!document.hasUnsavedChanges());
+    assert((document.getLines() == std::vector<std::string>{"saved"}));
+    assert(cursor.line == 0 && cursor.column == 5);
+    assert(document.redo(cursor));
+    assert(document.hasUnsavedChanges());
+    assert((document.getLines() == std::vector<std::string>{"saved!"}));
+    assert(cursor.line == 0 && cursor.column == 6);
+    document.markSaved();
+    assert(!document.hasUnsavedChanges());
+    assert(document.undo(cursor));
+    assert(document.hasUnsavedChanges());
+    assert(document.redo(cursor));
+    assert(!document.hasUnsavedChanges());
+
     document.startNewDocument();
     assert(document.hasUnsavedChanges());
     document.markSaved();

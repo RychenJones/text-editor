@@ -39,7 +39,8 @@ Instructions for using the software:
 3. Use the arrow keys to move the cursor and type normally to insert text.
 4. Use `Enter`, `Backspace`, and `Delete` to edit the document.
 5. Press `Ctrl-S` to save changes.
-6. Press `Ctrl-Q` to quit. If there are unsaved changes, press `y` to quit or `n` to continue editing.
+6. Press `Ctrl-Z` to undo and `Ctrl-Y` to redo edits.
+7. Press `Ctrl-Q` to quit. If there are unsaved changes, press `y` to quit or `n` to continue editing.
 
 ## Development Environment
 
