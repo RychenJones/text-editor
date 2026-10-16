@@ -47,6 +47,9 @@ private:
     // Scrolls the viewport as needed to keep the cursor visible.
     void keepCursorVisible();
 
+    // Builds the status bar text for the current editor state.
+    std::string buildStatusBar() const;
+
     // Inserts one character through the document model.
     void insertCharacter(char character);
 

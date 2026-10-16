@@ -14,7 +14,7 @@ constexpr std::size_t kFooterLineCount = 2;
 } // namespace
 
 // Returns a viewport sized for the current terminal, leaving room for the
-// editor help and status lines.
+// status bar and transient status message.
 Viewport TerminalRenderer::getTerminalViewport() const {
     winsize terminalSize{};
     if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &terminalSize) == -1 ||
@@ -32,10 +32,11 @@ Viewport TerminalRenderer::getTerminalViewport() const {
     return {0, 0, documentHeight, terminalSize.ws_col};
 }
 
-// Redraws the visible document text, status message, and cursor.
+// Redraws the visible document text, status bar, status message, and cursor.
 void TerminalRenderer::render(const Document& document,
                               const CursorPosition& cursor,
                               const Viewport& viewport,
+                              const std::string& statusBarMessage,
                               const std::string& statusMessage) const {
     std::cout << "\033[2J\033[H";
 
@@ -57,22 +58,36 @@ void TerminalRenderer::render(const Document& document,
     }
 
     const std::size_t footerStart = viewport.height + 1;
-    std::cout << "\033[" << footerStart << ";1H\033[K"
-              << "Use arrows to move, type to edit, Ctrl-S to save, and Ctrl-Q to quit.";
+    const auto writeFooterLine = [width = viewport.width](const std::string& text) {
+        if (width == 0 || text.size() <= width) {
+            std::cout << text;
+        } else {
+            std::cout << text.substr(0, width);
+        }
+    };
+
+    std::cout << "\033[" << footerStart << ";1H\033[K";
+    writeFooterLine(statusBarMessage);
     std::cout << "\033[" << footerStart + 1 << ";1H\033[K";
-    if (!statusMessage.empty()) {
-        std::cout << statusMessage;
-    }
+    writeFooterLine(statusMessage);
 
     positionCursor(cursor, viewport);
     std::cout.flush();
+}
+
+// Redraws the visible document text and a single footer message.
+void TerminalRenderer::render(const Document& document,
+                              const CursorPosition& cursor,
+                              const Viewport& viewport,
+                              const std::string& statusMessage) const {
+    render(document, cursor, viewport, statusMessage, "");
 }
 
 // Redraws using the current terminal size.
 void TerminalRenderer::render(const Document& document,
                               const CursorPosition& cursor,
                               const std::string& statusMessage) const {
-    render(document, cursor, getTerminalViewport(), statusMessage);
+    render(document, cursor, getTerminalViewport(), statusMessage, "");
 }
 
 // Makes the terminal cursor visible.

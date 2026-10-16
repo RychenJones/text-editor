@@ -27,7 +27,11 @@ void TextEditorUI::runEditor() {
     while (running) {
         updateViewportSize();
         keepCursorVisible();
-        renderer_.render(document_, cursor_, viewport_, statusMessage_);
+        renderer_.render(document_,
+                         cursor_,
+                         viewport_,
+                         buildStatusBar(),
+                         statusMessage_);
 
         const KeyEvent event = keyReader_.readKey();
         if (event.key != Key::Save) {
@@ -156,6 +160,20 @@ void TextEditorUI::keepCursorVisible() {
             viewport_.leftColumn = cursor_.column - viewport_.width + 1;
         }
     }
+}
+
+// Builds the status bar text for the current editor state.
+std::string TextEditorUI::buildStatusBar() const {
+    std::string fileName = filePath_.filename().string();
+    if (fileName.empty()) {
+        fileName = filePath_.empty() ? "[No Name]" : filePath_.string();
+    }
+
+    const std::string saveState = document_.hasUnsavedChanges() ? "MODIFIED" : "SAVED";
+    return fileName + "   |   Ln " + std::to_string(cursor_.line + 1) +
+           ", Col " + std::to_string(cursor_.column + 1) +
+           "   |   " + std::to_string(document_.getLines().size()) +
+           " lines   |   " + saveState;
 }
 
 // Inserts one character through the document model.

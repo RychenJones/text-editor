@@ -13,7 +13,14 @@ public:
     // Returns a viewport sized for the current terminal.
     Viewport getTerminalViewport() const;
 
-    // Redraws the visible document text, status message, and cursor.
+    // Redraws the visible document text, status bar, status message, and cursor.
+    void render(const Document& document,
+                const CursorPosition& cursor,
+                const Viewport& viewport,
+                const std::string& statusBarMessage,
+                const std::string& statusMessage) const;
+
+    // Redraws the visible document text and a single footer message.
     void render(const Document& document,
                 const CursorPosition& cursor,
                 const Viewport& viewport,
