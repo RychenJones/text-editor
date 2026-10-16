@@ -37,7 +37,7 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/13/26 | 10:45    | IM     | Main menu, file saving and creation.       | 50          |
 | 10/14/26 | 10:15    | MTG    | Presentations.                             | 60          |
 | 10/14/26 | 7:00     | IM     | Understood code and worked on organization | 50          |
-|          |          |        |                                            |             |
+| 10/15/26 | 7:40     | IM     |                                            |             |
 |          |          |        |                                            |             |
 |          |          |        |                                            |             |
 
