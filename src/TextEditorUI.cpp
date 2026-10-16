@@ -10,6 +10,7 @@ TextEditorUI::TextEditorUI(Document& document,
     : document_(document),
       fileStorage_(fileStorage),
       filePath_(std::move(filePath)) {
+    updateViewportSize();
 }
 
 // Runs the interactive editor until the user chooses to quit.
@@ -24,7 +25,9 @@ void TextEditorUI::runEditor() {
     bool running = true;
     // Render the current state, then process one input event per iteration.
     while (running) {
-        renderer_.render(document_, cursor_, statusMessage_);
+        updateViewportSize();
+        keepCursorVisible();
+        renderer_.render(document_, cursor_, viewport_, statusMessage_);
 
         const KeyEvent event = keyReader_.readKey();
         if (event.key != Key::Save) {
@@ -125,6 +128,33 @@ void TextEditorUI::keepCursorWithinCurrentLine() {
     if (!documentLines.empty() &&
         cursor_.column > documentLines[cursor_.line].size()) {
         cursor_.column = documentLines[cursor_.line].size();
+    }
+}
+
+// Updates the viewport dimensions while preserving its current scroll
+// position. This also makes terminal resizing take effect on the next frame.
+void TextEditorUI::updateViewportSize() {
+    const Viewport terminalViewport = renderer_.getTerminalViewport();
+    viewport_.height = terminalViewport.height;
+    viewport_.width = terminalViewport.width;
+}
+
+// Scrolls vertically and horizontally so the cursor remains on screen.
+void TextEditorUI::keepCursorVisible() {
+    if (viewport_.height > 0) {
+        if (cursor_.line < viewport_.topLine) {
+            viewport_.topLine = cursor_.line;
+        } else if (cursor_.line - viewport_.topLine >= viewport_.height) {
+            viewport_.topLine = cursor_.line - viewport_.height + 1;
+        }
+    }
+
+    if (viewport_.width > 0) {
+        if (cursor_.column < viewport_.leftColumn) {
+            viewport_.leftColumn = cursor_.column;
+        } else if (cursor_.column - viewport_.leftColumn >= viewport_.width) {
+            viewport_.leftColumn = cursor_.column - viewport_.width + 1;
+        }
     }
 }
 

@@ -6,6 +6,7 @@
 #include "FileStorage.h"
 #include "KeyReader.h"
 #include "TerminalRenderer.h"
+#include "Viewport.h"
 
 #include <filesystem>
 #include <string>
@@ -40,6 +41,12 @@ private:
     // Keeps the cursor within the length of its current line.
     void keepCursorWithinCurrentLine();
 
+    // Updates the viewport dimensions if the terminal was resized.
+    void updateViewportSize();
+
+    // Scrolls the viewport as needed to keep the cursor visible.
+    void keepCursorVisible();
+
     // Inserts one character through the document model.
     void insertCharacter(char character);
 
@@ -59,6 +66,7 @@ private:
     std::string statusMessage_;
     KeyReader keyReader_;
     TerminalRenderer renderer_;
+    Viewport viewport_;
 };
 
 #endif // TEXT_EDITOR_UI_H

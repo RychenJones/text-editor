@@ -836,4 +836,5 @@ CMakeFiles/text_editor.dir/src/TextEditorUI.cpp.o: \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/__filesystem/u8path.h \
   /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/include/KeyReader.h \
   /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/include/TerminalRenderer.h \
+  /Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE\ 310/text-editor/include/Viewport.h \
   /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/usr/include/c++/v1/iostream

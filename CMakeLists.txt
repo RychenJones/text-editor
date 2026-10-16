@@ -18,6 +18,7 @@ add_executable(text_editor
     include/KeyReader.h
     include/TerminalRenderer.h
     include/TextEditorUI.h
+    include/Viewport.h
 )
 
 target_include_directories(text_editor PRIVATE
@@ -36,3 +37,15 @@ target_include_directories(document_tests PRIVATE
 )
 
 add_test(NAME document_tests COMMAND document_tests)
+
+add_executable(terminal_renderer_tests
+    tests/TerminalRendererTests.cpp
+    src/Document.cpp
+    src/TerminalRenderer.cpp
+)
+
+target_include_directories(terminal_renderer_tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME terminal_renderer_tests COMMAND terminal_renderer_tests)
