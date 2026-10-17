@@ -20,6 +20,15 @@ public:
                 const std::string& statusBarMessage,
                 const std::string& statusMessage) const;
 
+    // Redraws the document with an optional transient message below its first
+    // line. The message is display-only and never becomes document content.
+    void render(const Document& document,
+                const CursorPosition& cursor,
+                const Viewport& viewport,
+                const std::string& statusBarMessage,
+                const std::string& statusMessage,
+                const std::string& documentHelpMessage) const;
+
     // Redraws the visible document text and a single footer message.
     void render(const Document& document,
                 const CursorPosition& cursor,
@@ -41,7 +50,8 @@ public:
 private:
     // Moves the terminal cursor to the document position within the viewport.
     void positionCursor(const CursorPosition& cursor,
-                        const Viewport& viewport) const;
+                        const Viewport& viewport,
+                        std::size_t documentHelpLineCount) const;
 };
 
 #endif // TERMINAL_RENDERER_H

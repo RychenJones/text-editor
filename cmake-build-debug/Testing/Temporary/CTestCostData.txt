@@ -1,0 +1,3 @@
+document_tests 3 0.0969596
+terminal_renderer_tests 3 0.0552144
+---

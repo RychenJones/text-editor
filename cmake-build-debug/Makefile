@@ -152,6 +152,19 @@ document_tests/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/build
 .PHONY : document_tests/fast
 
+#=============================================================================
+# Target rules for targets named terminal_renderer_tests
+
+# Build rule for target.
+terminal_renderer_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 terminal_renderer_tests
+.PHONY : terminal_renderer_tests
+
+# fast build rule for target.
+terminal_renderer_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/build
+.PHONY : terminal_renderer_tests/fast
+
 main.o: main.cpp.o
 .PHONY : main.o
 
@@ -183,6 +196,7 @@ src/Document.o: src/Document.cpp.o
 src/Document.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.o
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/Document.cpp.o
 .PHONY : src/Document.cpp.o
 
 src/Document.i: src/Document.cpp.i
@@ -192,6 +206,7 @@ src/Document.i: src/Document.cpp.i
 src/Document.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.i
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/Document.cpp.i
 .PHONY : src/Document.cpp.i
 
 src/Document.s: src/Document.cpp.s
@@ -201,6 +216,7 @@ src/Document.s: src/Document.cpp.s
 src/Document.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/Document.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/src/Document.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/Document.cpp.s
 .PHONY : src/Document.cpp.s
 
 src/FileStorage.o: src/FileStorage.cpp.o
@@ -257,6 +273,7 @@ src/TerminalRenderer.o: src/TerminalRenderer.cpp.o
 # target to build an object file
 src/TerminalRenderer.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/TerminalRenderer.cpp.o
 .PHONY : src/TerminalRenderer.cpp.o
 
 src/TerminalRenderer.i: src/TerminalRenderer.cpp.i
@@ -265,6 +282,7 @@ src/TerminalRenderer.i: src/TerminalRenderer.cpp.i
 # target to preprocess a source file
 src/TerminalRenderer.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/TerminalRenderer.cpp.i
 .PHONY : src/TerminalRenderer.cpp.i
 
 src/TerminalRenderer.s: src/TerminalRenderer.cpp.s
@@ -273,6 +291,7 @@ src/TerminalRenderer.s: src/TerminalRenderer.cpp.s
 # target to generate assembly for a file
 src/TerminalRenderer.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/text_editor.dir/build.make CMakeFiles/text_editor.dir/src/TerminalRenderer.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/src/TerminalRenderer.cpp.s
 .PHONY : src/TerminalRenderer.cpp.s
 
 src/TextEditorUI.o: src/TextEditorUI.cpp.o
@@ -323,6 +342,30 @@ tests/DocumentTests.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/document_tests.dir/build.make CMakeFiles/document_tests.dir/tests/DocumentTests.cpp.s
 .PHONY : tests/DocumentTests.cpp.s
 
+tests/TerminalRendererTests.o: tests/TerminalRendererTests.cpp.o
+.PHONY : tests/TerminalRendererTests.o
+
+# target to build an object file
+tests/TerminalRendererTests.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/tests/TerminalRendererTests.cpp.o
+.PHONY : tests/TerminalRendererTests.cpp.o
+
+tests/TerminalRendererTests.i: tests/TerminalRendererTests.cpp.i
+.PHONY : tests/TerminalRendererTests.i
+
+# target to preprocess a source file
+tests/TerminalRendererTests.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/tests/TerminalRendererTests.cpp.i
+.PHONY : tests/TerminalRendererTests.cpp.i
+
+tests/TerminalRendererTests.s: tests/TerminalRendererTests.cpp.s
+.PHONY : tests/TerminalRendererTests.s
+
+# target to generate assembly for a file
+tests/TerminalRendererTests.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/terminal_renderer_tests.dir/build.make CMakeFiles/terminal_renderer_tests.dir/tests/TerminalRendererTests.cpp.s
+.PHONY : tests/TerminalRendererTests.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -333,6 +376,7 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... test"
 	@echo "... document_tests"
+	@echo "... terminal_renderer_tests"
 	@echo "... text_editor"
 	@echo "... main.o"
 	@echo "... main.i"
@@ -355,6 +399,9 @@ help:
 	@echo "... tests/DocumentTests.o"
 	@echo "... tests/DocumentTests.i"
 	@echo "... tests/DocumentTests.s"
+	@echo "... tests/TerminalRendererTests.o"
+	@echo "... tests/TerminalRendererTests.i"
+	@echo "... tests/TerminalRendererTests.s"
 .PHONY : help
 
 

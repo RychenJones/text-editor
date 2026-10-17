@@ -1,0 +1,1 @@
+/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/terminal_renderer_tests.dir/tests/TerminalRendererTests.cpp.o CMakeFiles/terminal_renderer_tests.dir/src/Document.cpp.o CMakeFiles/terminal_renderer_tests.dir/src/TerminalRenderer.cpp.o -o terminal_renderer_tests

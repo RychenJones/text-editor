@@ -25,6 +25,16 @@ int main() {
                     "example.txt   |   Ln 3, Col 3   |   4 lines   |   MODIFIED",
                     "Changes saved to example.txt");
 
+    Document welcomeDocument;
+    welcomeDocument.replaceLines({"Welcome to the text editor!", "document line"});
+    renderer.render(welcomeDocument,
+                    CursorPosition{},
+                    Viewport{0, 0, 6, 120},
+                    "",
+                    "",
+                    "Controls: arrows move | Enter creates a new line\n"
+                    "Ctrl-Q quits");
+
     std::cout.rdbuf(originalBuffer);
 
     const std::string output = renderedOutput.str();
@@ -37,6 +47,18 @@ int main() {
            std::string::npos);
     assert(output.find("Changes saved to example.txt") != std::string::npos);
     assert(output.find("Use arrows to move") == std::string::npos);
+    const std::size_t welcomePosition =
+        output.find("Welcome to the text editor!");
+    const std::size_t firstHelpPosition =
+        output.find("Controls: arrows move | Enter creates a new line");
+    const std::size_t secondHelpPosition = output.find("Ctrl-Q quits");
+    const std::size_t documentPosition = output.find("document line");
+    assert(welcomePosition < firstHelpPosition);
+    assert(firstHelpPosition < secondHelpPosition);
+    assert(secondHelpPosition < documentPosition);
+
+    const std::string afterSecondHelp = output.substr(secondHelpPosition);
+    assert(afterSecondHelp.find("\033[K\n\033[K\n") != std::string::npos);
 
     return 0;
 }

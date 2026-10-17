@@ -10,6 +10,13 @@
 
 #include <filesystem>
 #include <string>
+#include <vector>
+
+enum class EditorMode {
+    Editing,
+    SearchPrompt,
+    Confirming
+};
 
 // Coordinates terminal input, the document model, storage, and rendering.
 class TextEditorUI {
@@ -23,8 +30,33 @@ public:
     void runEditor();
 
 private:
-    // Confirms whether the user wants to quit with unsaved changes.
-    bool confirmQuitWithoutSaving() const;
+    // Processes an input event while the editor is in normal editing mode.
+    void processEditingEvent(const KeyEvent& event, bool& running);
+
+    // Processes input used to build and submit a search query.
+    void processSearchPromptEvent(const KeyEvent& event);
+
+    // Processes the response to the unsaved-changes confirmation.
+    void processConfirmationEvent(const KeyEvent& event, bool& running);
+
+    // Enters the search prompt mode.
+    void beginSearch();
+
+    // Collects all case-insensitive matches for the active search query.
+    void collectSearchMatches();
+
+    // Selects the first match at or after the current cursor, with wraparound.
+    bool selectInitialSearchMatch();
+
+    // Moves among the active search matches.
+    void moveToNextSearchMatch();
+    void moveToPreviousSearchMatch();
+
+    // Builds the footer message for the current editor mode.
+    std::string buildFooterMessage() const;
+
+    // Builds the one-time controls blurb shown below the welcome line.
+    std::string buildControlsBlurb() const;
 
     // Moves the cursor one line upward.
     void moveUp();
@@ -67,6 +99,13 @@ private:
     std::filesystem::path filePath_;
     CursorPosition cursor_;
     std::string statusMessage_;
+    std::string searchQuery_;
+    std::string searchResultMessage_;
+    std::vector<CursorPosition> searchMatches_;
+    std::size_t searchMatchIndex_ = 0;
+    bool searchActive_ = false;
+    bool showControls_ = true;
+    EditorMode mode_ = EditorMode::Editing;
     KeyReader keyReader_;
     TerminalRenderer renderer_;
     Viewport viewport_;

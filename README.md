@@ -40,7 +40,8 @@ Instructions for using the software:
 4. Use `Enter`, `Backspace`, and `Delete` to edit the document.
 5. Press `Ctrl-S` to save changes.
 6. Press `Ctrl-Z` to undo and `Ctrl-Y` to redo edits.
-7. Press `Ctrl-Q` to quit. If there are unsaved changes, press `y` to quit or `n` to continue editing.
+7. Press `Ctrl-F`, type a case-insensitive search term, and press `Enter` to enter find mode. Use the left and right arrows to move to the previous or next match, then press `q` to leave find mode. Press `Escape` to cancel.
+8. Press `Ctrl-Q` to quit. If there are unsaved changes, press `y` to quit or `n` to continue editing.
 
 ## Development Environment
 

@@ -16,6 +16,8 @@ enum class Key {
     Save,
     Undo,
     Redo,
+    Search,
+    Escape,
     Quit,
     Unknown
 };
