@@ -128,6 +128,10 @@ KeyEvent KeyReader::readKey() const {
         return {Key::Enter};
     }
 
+    if (*firstCharacter == '\t') {
+        return {Key::Tab};
+    }
+
     if (*firstCharacter == '\b' || *firstCharacter == 127) {
         return {Key::Backspace};
     }

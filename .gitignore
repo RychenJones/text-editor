@@ -1,3 +1,4 @@
 # Generated CMake build directories
 cmake-build-*/
 build/
+agents.md

@@ -67,6 +67,34 @@ int main() {
     assert(document.redo(cursor));
     assert(!document.hasUnsavedChanges());
 
+    document.replaceLines({"  indented text"});
+    cursor = {0, 6};
+    assert(document.insertNewline(cursor));
+    assert((document.getLines() ==
+            std::vector<std::string>{"  inde", "  nted text"}));
+    assert(cursor.line == 1 && cursor.column == 2);
+    assert(document.undo(cursor));
+    assert((document.getLines() == std::vector<std::string>{"  indented text"}));
+    assert(cursor.line == 0 && cursor.column == 6);
+
+    document.replaceLines({"abc"});
+    cursor = {0, 1};
+    assert(document.insertTab(cursor));
+    assert(document.getLines() == std::vector<std::string>{"a    bc"});
+    assert(cursor.line == 0 && cursor.column == 5);
+    assert(document.undo(cursor));
+    assert(document.getLines() == std::vector<std::string>{"abc"});
+    assert(cursor.line == 0 && cursor.column == 1);
+
+    document.replaceLines({"    text"});
+    cursor = {0, 0};
+    assert(document.insertNewline(cursor));
+    assert((document.getLines() == std::vector<std::string>{"", "    text"}));
+    assert(cursor.line == 1 && cursor.column == 4);
+    assert(document.undo(cursor));
+    assert(document.getLines() == std::vector<std::string>{"    text"});
+    assert(cursor.line == 0 && cursor.column == 0);
+
     document.startNewDocument();
     assert(document.hasUnsavedChanges());
     document.markSaved();

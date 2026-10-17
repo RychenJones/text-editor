@@ -88,6 +88,9 @@ private:
     // Inserts a newline through the document model.
     void insertNewline();
 
+    // Inserts a tab character through the document model.
+    void insertTab();
+
     // Deletes behind the cursor through the document model.
     void backspace();
 

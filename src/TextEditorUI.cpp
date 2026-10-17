@@ -8,7 +8,7 @@ namespace {
 
 constexpr char kWelcomeLine[] = "Welcome to the text editor!";
 constexpr char kControlsBlurb[] =
-    "Controls: arrows move | Enter creates a new line | Backspace/Delete remove text\n"
+    "Controls: arrows move | Enter/new line | Tab/indent | Backspace/Delete remove text\n"
     "Ctrl-S saves | Ctrl-F searches | Ctrl-Z/Y undo/redo | Ctrl-Q quits";
 
 } // namespace
@@ -86,6 +86,9 @@ void TextEditorUI::processEditingEvent(const KeyEvent& event, bool& running) {
             break;
         case Key::Enter:
             insertNewline();
+            break;
+        case Key::Tab:
+            insertTab();
             break;
         case Key::Backspace:
             backspace();
@@ -408,9 +411,14 @@ void TextEditorUI::insertCharacter(char character) {
     document_.insertCharacter(cursor_, character);
 }
 
-// Inserts a newline through the document model.
+// Inserts a newline and lets the document model copy the current indentation.
 void TextEditorUI::insertNewline() {
     document_.insertNewline(cursor_);
+}
+
+// Inserts a four-space tab through the document model.
+void TextEditorUI::insertTab() {
+    document_.insertTab(cursor_);
 }
 
 // Deletes behind the cursor through the document model.

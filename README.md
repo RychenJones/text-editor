@@ -1,18 +1,3 @@
-# MVP Acceptance Criteria
-
-• Open an existing text file.
-• View its contents.
-• Move around the document.
-• Add and delete text.
-• Save the changes.
-• Create and save a new file.
-• Quit without accidentally losing unsaved work.
-• Receive understandable error messages.
-
-Hour 6: better organization, update README, understand code
-Hour 7: Understand code | fileStorage, keyReader
-Hour 8: Understand code | Terminal Renderer, TextEditorUI
-Hour 9: Look into a GUI
 Hour 10: Finish touches
 
 
@@ -37,7 +22,7 @@ Instructions for using the software:
 1. Choose `1` to create a new file, `2` to edit an existing file, or `q` to quit.
 2. Enter the file path when prompted.
 3. Use the arrow keys to move the cursor and type normally to insert text.
-4. Use `Enter`, `Backspace`, and `Delete` to edit the document.
+4. Use `Enter`, `Tab`, `Backspace`, and `Delete` to edit the document. Enter copies leading spaces from the previous line, and Tab inserts four spaces while moving the cursor past them.
 5. Press `Ctrl-S` to save changes.
 6. Press `Ctrl-Z` to undo and `Ctrl-Y` to redo edits.
 7. Press `Ctrl-F`, type a case-insensitive search term, and press `Enter` to enter find mode. Use the left and right arrows to move to the previous or next match, then press `q` to leave find mode. Press `Escape` to cancel.

@@ -2,6 +2,12 @@
 
 #include <utility>
 
+namespace {
+
+constexpr std::size_t kTabWidth = 4;
+
+} // namespace
+
 // Initializes a document with one empty line.
 Document::Document()
     : lines_(1, "") {
@@ -87,14 +93,29 @@ bool Document::insertCharacter(CursorPosition& cursor, char character) {
     return true;
 }
 
-// Splits the current line at the cursor and moves to the new line.
+// Splits the current line at the cursor, copies its leading spaces to the new
+// line, and moves to the new line after that indentation.
 bool Document::insertNewline(CursorPosition& cursor) {
     if (!isValidPosition(cursor)) {
         return false;
     }
 
     updateCurrentHistoryCursor(cursor);
+    std::size_t indentationLength = 0;
+    while (indentationLength < lines_[cursor.line].size() &&
+           lines_[cursor.line][indentationLength] == ' ') {
+        ++indentationLength;
+    }
     std::string remainder = lines_[cursor.line].substr(cursor.column);
+    std::size_t remainderIndentationLength = 0;
+    while (remainderIndentationLength < remainder.size() &&
+           remainder[remainderIndentationLength] == ' ') {
+        ++remainderIndentationLength;
+    }
+    const std::size_t indentationToInsert =
+        indentationLength > remainderIndentationLength
+            ? indentationLength - remainderIndentationLength
+            : 0;
     lines_[cursor.line].erase(cursor.column);
 
     // Insert the text after the cursor as the next document line.
@@ -102,7 +123,22 @@ bool Document::insertNewline(CursorPosition& cursor) {
                   std::move(remainder));
 
     ++cursor.line;
-    cursor.column = 0;
+    lines_[cursor.line].insert(0, indentationToInsert, ' ');
+    cursor.column = indentationLength;
+    unsavedChanges_ = true;
+    recordEdit(cursor);
+    return true;
+}
+
+// Inserts a four-space tab at the cursor and moves past all four spaces.
+bool Document::insertTab(CursorPosition& cursor) {
+    if (!isValidPosition(cursor)) {
+        return false;
+    }
+
+    updateCurrentHistoryCursor(cursor);
+    lines_[cursor.line].insert(cursor.column, kTabWidth, ' ');
+    cursor.column += kTabWidth;
     unsavedChanges_ = true;
     recordEdit(cursor);
     return true;

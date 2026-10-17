@@ -40,8 +40,12 @@ public:
     // Inserts a character at the cursor and moves the cursor right.
     bool insertCharacter(CursorPosition& cursor, char character);
 
-    // Splits the current line at the cursor and moves to the new line.
+    // Splits the current line at the cursor, copies its leading spaces to the
+    // new line, and moves to the new line after that indentation.
     bool insertNewline(CursorPosition& cursor);
+
+    // Inserts a four-space tab at the cursor and moves past all four spaces.
+    bool insertTab(CursorPosition& cursor);
 
     // Deletes behind the cursor, joining lines when needed.
     bool backspace(CursorPosition& cursor);

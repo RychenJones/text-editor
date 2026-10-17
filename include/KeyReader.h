@@ -11,6 +11,7 @@ enum class Key {
     Right,
     Character,
     Enter,
+    Tab,
     Backspace,
     Delete,
     Save,
