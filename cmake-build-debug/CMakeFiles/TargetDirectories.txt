@@ -1,6 +1,0 @@
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/text_editor.dir
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/document_tests.dir
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/terminal_renderer_tests.dir
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/test.dir
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/rychenjones/Library/CloudStorage/OneDrive-BYU-Idaho/CSE 310/text-editor/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-/usr/bin/c++ -g -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/document_tests.dir/tests/DocumentTests.cpp.o CMakeFiles/document_tests.dir/src/Document.cpp.o -o document_tests
