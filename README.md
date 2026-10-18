@@ -1,7 +1,3 @@
-Hour 10: Finish touches
-
-
-
 # File Editor
 
 This is a text editor command line application. It will allow a user to enter a filename to a txt file, then will be 
@@ -49,6 +45,6 @@ I found these websites useful in developing this software:
 
 The following items I plan to fix, improve, and/or add to this project in the future:
 
-* [ ] First thing here
-* [ ]
-* [ ]
+* [ ] Add a GUI
+* [ ] Add line numbers
+* [ ] Add autosave functionality

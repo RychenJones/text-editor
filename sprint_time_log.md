@@ -42,8 +42,8 @@ The expected minimum amount of time each Sprint for each category is as follows:
 | 10/16/26 | 3:40     | IM     | Learned more about C++ syntax and workings.| 60          |
 | 10/16/26 | 5:55     | IM     | Added search feature and tabbing function. | 65          |
 | 10/16/26 | 5:55     | IM     | Added save as, reload, and new file.       | 25          |
-|          |          |        |                                            |             |
-|          |          |        |                                            |             |
+| 10/16/26 | 6:20     | TP     | Reviewed a pull request and started AWS.   | 60          |
+| 10/16/26 | 7:20     | IM     | Polished files and filled out the report.  | 30          |
 
 
 _Note: Add more rows as needed._
@@ -52,7 +52,7 @@ _Note: Add more rows as needed._
 
 |Categroy                       |Total Time (Hours:Minutes)|
 |-------------------------------|:------------------------:|
-|IM - Individual Module         | 9:30/10                  |
-|TP - Team Project              | 3:00/4                   |
+|IM - Individual Module         | 10:00/10                  |
+|TP - Team Project              | 4:00/4                   |
 |MTG - Class Meetings           | 4:00/4                   |
-|**TOTAL**                      | 16:30/18                 |
+|**TOTAL**                      | 18:00/18                 |
