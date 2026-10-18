@@ -60,5 +60,17 @@ int main() {
     const std::string afterSecondHelp = output.substr(secondHelpPosition);
     assert(afterSecondHelp.find("\033[K\n\033[K\n") != std::string::npos);
 
+    std::ostringstream promptOutput;
+    std::cout.rdbuf(promptOutput.rdbuf());
+    renderer.render(document,
+                    cursor,
+                    Viewport{0, 0, 2, 80},
+                    "example.txt   |   Ln 3, Col 3   |   4 lines   |   MODIFIED",
+                    "Save As: new-file.txt | Enter: confirm | Escape: cancel",
+                    "",
+                    20);
+    std::cout.rdbuf(originalBuffer);
+    assert(promptOutput.str().find("\033[4;21H") != std::string::npos);
+
     return 0;
 }

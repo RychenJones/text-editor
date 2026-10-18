@@ -9,13 +9,24 @@
 #include "Viewport.h"
 
 #include <filesystem>
+#include <optional>
 #include <string>
 #include <vector>
 
 enum class EditorMode {
     Editing,
     SearchPrompt,
+    FilePathPrompt,
     Confirming
+};
+
+enum class PendingAction {
+    None,
+    Quit,
+    SaveAs,
+    Open,
+    Reload,
+    NewDocument
 };
 
 // Coordinates terminal input, the document model, storage, and rendering.
@@ -36,11 +47,41 @@ private:
     // Processes input used to build and submit a search query.
     void processSearchPromptEvent(const KeyEvent& event);
 
+    // Processes input used to build and submit a file path.
+    void processFilePathPromptEvent(const KeyEvent& event);
+
     // Processes the response to the unsaved-changes confirmation.
     void processConfirmationEvent(const KeyEvent& event, bool& running);
 
     // Enters the search prompt mode.
     void beginSearch();
+
+    // Starts a file-path prompt for a file operation.
+    void beginFilePathPrompt(PendingAction action);
+
+    // Starts the confirmation mode for an operation that can discard edits.
+    void beginConfirmation(PendingAction action);
+
+    // Completes the operation selected by the current file-path prompt.
+    void completeFilePathPrompt();
+
+    // Saves the document to a new path and makes that path active.
+    void saveAs(const std::filesystem::path& filePath);
+
+    // Opens a different file and makes it the active document.
+    void openFile(const std::filesystem::path& filePath);
+
+    // Reloads the active file from disk.
+    void reloadFile();
+
+    // Starts a new document at a new path.
+    void createNewFile(const std::filesystem::path& filePath);
+
+    // Clears UI state that belongs to the previous document.
+    void resetDocumentView();
+
+    // Cancels the pending file operation and returns to editing.
+    void cancelPendingAction();
 
     // Collects all case-insensitive matches for the active search query.
     void collectSearchMatches();
@@ -54,6 +95,12 @@ private:
 
     // Builds the footer message for the current editor mode.
     std::string buildFooterMessage() const;
+
+    // Returns the editable cursor column for a prompt shown in the footer.
+    std::optional<std::size_t> buildFooterCursorColumn() const;
+
+    // Returns a user-facing name for a pending action.
+    std::string pendingActionName() const;
 
     // Builds the one-time controls blurb shown below the welcome line.
     std::string buildControlsBlurb() const;
@@ -102,6 +149,8 @@ private:
     std::filesystem::path filePath_;
     CursorPosition cursor_;
     std::string statusMessage_;
+    std::string filePathInput_;
+    std::filesystem::path pendingFilePath_;
     std::string searchQuery_;
     std::string searchResultMessage_;
     std::vector<CursorPosition> searchMatches_;
@@ -109,6 +158,7 @@ private:
     bool searchActive_ = false;
     bool showControls_ = true;
     EditorMode mode_ = EditorMode::Editing;
+    PendingAction pendingAction_ = PendingAction::None;
     KeyReader keyReader_;
     TerminalRenderer renderer_;
     Viewport viewport_;

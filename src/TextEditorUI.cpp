@@ -9,7 +9,8 @@ namespace {
 constexpr char kWelcomeLine[] = "Welcome to the text editor!";
 constexpr char kControlsBlurb[] =
     "Controls: arrows move | Enter/new line | Tab/indent | Backspace/Delete remove text\n"
-    "Ctrl-S saves | Ctrl-F searches | Ctrl-Z/Y undo/redo | Ctrl-Q quits";
+    "Ctrl-S saves | Ctrl-A saves as | Ctrl-O opens | Ctrl-R reloads | Ctrl-N new document\n"
+    "Ctrl-F searches | Ctrl-Z/Y undo/redo | Ctrl-Q quits";
 
 } // namespace
 
@@ -42,7 +43,8 @@ void TextEditorUI::runEditor() {
                          viewport_,
                          buildStatusBar(),
                          buildFooterMessage(),
-                         buildControlsBlurb());
+                         buildControlsBlurb(),
+                         buildFooterCursorColumn());
 
         const KeyEvent event = keyReader_.readKey();
         switch (mode_) {
@@ -51,6 +53,9 @@ void TextEditorUI::runEditor() {
                 break;
             case EditorMode::SearchPrompt:
                 processSearchPromptEvent(event);
+                break;
+            case EditorMode::FilePathPrompt:
+                processFilePathPromptEvent(event);
                 break;
             case EditorMode::Confirming:
                 processConfirmationEvent(event, running);
@@ -103,6 +108,32 @@ void TextEditorUI::processEditingEvent(const KeyEvent& event, bool& running) {
                 statusMessage_ = fileStorage_.getLastError();
             }
             break;
+        case Key::SaveAs:
+            beginFilePathPrompt(PendingAction::SaveAs);
+            break;
+        case Key::Open:
+            if (document_.hasUnsavedChanges()) {
+                beginConfirmation(PendingAction::Open);
+            } else {
+                beginFilePathPrompt(PendingAction::Open);
+            }
+            break;
+        case Key::Reload:
+            if (filePath_.empty()) {
+                statusMessage_ = "There is no active file to reload.";
+            } else if (document_.hasUnsavedChanges()) {
+                beginConfirmation(PendingAction::Reload);
+            } else {
+                reloadFile();
+            }
+            break;
+        case Key::NewDocument:
+            if (document_.hasUnsavedChanges()) {
+                beginConfirmation(PendingAction::NewDocument);
+            } else {
+                beginFilePathPrompt(PendingAction::NewDocument);
+            }
+            break;
         case Key::Undo:
             document_.undo(cursor_);
             break;
@@ -116,11 +147,37 @@ void TextEditorUI::processEditingEvent(const KeyEvent& event, bool& running) {
             if (!document_.hasUnsavedChanges()) {
                 running = false;
             } else {
-                mode_ = EditorMode::Confirming;
+                beginConfirmation(PendingAction::Quit);
             }
             break;
         case Key::Escape:
         case Key::Unknown:
+            break;
+    }
+}
+
+// Processes input used to build and submit a file path.
+void TextEditorUI::processFilePathPromptEvent(const KeyEvent& event) {
+    if (event.key == Key::Escape) {
+        cancelPendingAction();
+        return;
+    }
+
+    switch (event.key) {
+        case Key::Character:
+            statusMessage_.clear();
+            filePathInput_.push_back(event.character);
+            break;
+        case Key::Backspace:
+            statusMessage_.clear();
+            if (!filePathInput_.empty()) {
+                filePathInput_.pop_back();
+            }
+            break;
+        case Key::Enter:
+            completeFilePathPrompt();
+            break;
+        default:
             break;
     }
 }
@@ -192,15 +249,35 @@ void TextEditorUI::processSearchPromptEvent(const KeyEvent& event) {
 void TextEditorUI::processConfirmationEvent(const KeyEvent& event, bool& running) {
     if (event.key != Key::Character) {
         if (event.key == Key::Escape) {
-            mode_ = EditorMode::Editing;
+            cancelPendingAction();
         }
         return;
     }
 
     if (event.character == 'y' || event.character == 'Y') {
-        running = false;
+        switch (pendingAction_) {
+            case PendingAction::Quit:
+                running = false;
+                pendingAction_ = PendingAction::None;
+                break;
+            case PendingAction::Open:
+                beginFilePathPrompt(PendingAction::Open);
+                break;
+            case PendingAction::Reload:
+                reloadFile();
+                break;
+            case PendingAction::NewDocument:
+                beginFilePathPrompt(PendingAction::NewDocument);
+                break;
+            case PendingAction::SaveAs:
+                saveAs(pendingFilePath_);
+                break;
+            case PendingAction::None:
+                cancelPendingAction();
+                break;
+        }
     } else if (event.character == 'n' || event.character == 'N') {
-        mode_ = EditorMode::Editing;
+        cancelPendingAction();
     }
 }
 
@@ -212,6 +289,149 @@ void TextEditorUI::beginSearch() {
     searchMatchIndex_ = 0;
     searchActive_ = false;
     mode_ = EditorMode::SearchPrompt;
+}
+
+// Starts a file-path prompt for a file operation.
+void TextEditorUI::beginFilePathPrompt(PendingAction action) {
+    pendingAction_ = action;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+    statusMessage_.clear();
+    mode_ = EditorMode::FilePathPrompt;
+}
+
+// Starts the confirmation mode for an operation that can discard edits.
+void TextEditorUI::beginConfirmation(PendingAction action) {
+    pendingAction_ = action;
+    filePathInput_.clear();
+    statusMessage_.clear();
+    mode_ = EditorMode::Confirming;
+}
+
+// Completes the operation selected by the current file-path prompt.
+void TextEditorUI::completeFilePathPrompt() {
+    if (filePathInput_.empty()) {
+        statusMessage_ = "The file path cannot be empty.";
+        return;
+    }
+
+    const std::filesystem::path requestedPath = filePathInput_;
+    switch (pendingAction_) {
+        case PendingAction::SaveAs: {
+            std::error_code error;
+            if (std::filesystem::exists(requestedPath, error)) {
+                if (error) {
+                    statusMessage_ = "Unable to check the file path: " + error.message() + ".";
+                    return;
+                }
+
+                pendingFilePath_ = requestedPath;
+                beginConfirmation(PendingAction::SaveAs);
+            } else if (error) {
+                statusMessage_ = "Unable to check the file path: " + error.message() + ".";
+            } else {
+                saveAs(requestedPath);
+            }
+            break;
+        }
+        case PendingAction::Open:
+            openFile(requestedPath);
+            break;
+        case PendingAction::NewDocument:
+            createNewFile(requestedPath);
+            break;
+        case PendingAction::None:
+        case PendingAction::Quit:
+        case PendingAction::Reload:
+            cancelPendingAction();
+            break;
+    }
+}
+
+// Saves the document to a new path and makes that path active.
+void TextEditorUI::saveAs(const std::filesystem::path& filePath) {
+    if (fileStorage_.saveFile(filePath, document_)) {
+        filePath_ = filePath;
+        statusMessage_ = "Changes saved to " + filePath_.string();
+    } else {
+        statusMessage_ = fileStorage_.getLastError();
+    }
+
+    mode_ = EditorMode::Editing;
+    pendingAction_ = PendingAction::None;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+}
+
+// Opens a different file and makes it the active document.
+void TextEditorUI::openFile(const std::filesystem::path& filePath) {
+    if (fileStorage_.openFile(filePath, document_)) {
+        filePath_ = filePath;
+        resetDocumentView();
+        statusMessage_ = "Opened " + filePath_.string();
+    } else {
+        statusMessage_ = fileStorage_.getLastError();
+    }
+
+    mode_ = EditorMode::Editing;
+    pendingAction_ = PendingAction::None;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+}
+
+// Reloads the active file from disk.
+void TextEditorUI::reloadFile() {
+    if (filePath_.empty()) {
+        statusMessage_ = "There is no active file to reload.";
+    } else if (fileStorage_.openFile(filePath_, document_)) {
+        resetDocumentView();
+        statusMessage_ = "Reloaded " + filePath_.string();
+    } else {
+        statusMessage_ = fileStorage_.getLastError();
+    }
+
+    mode_ = EditorMode::Editing;
+    pendingAction_ = PendingAction::None;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+}
+
+// Starts a new document at a new path.
+void TextEditorUI::createNewFile(const std::filesystem::path& filePath) {
+    if (fileStorage_.createFile(filePath, document_)) {
+        filePath_ = filePath;
+        resetDocumentView();
+        statusMessage_ = "Created new document at " + filePath_.string();
+    } else {
+        statusMessage_ = fileStorage_.getLastError();
+    }
+
+    mode_ = EditorMode::Editing;
+    pendingAction_ = PendingAction::None;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+}
+
+// Clears UI state that belongs to the previous document.
+void TextEditorUI::resetDocumentView() {
+    cursor_ = {};
+    viewport_.topLine = 0;
+    viewport_.leftColumn = 0;
+    searchQuery_.clear();
+    searchResultMessage_.clear();
+    searchMatches_.clear();
+    searchMatchIndex_ = 0;
+    searchActive_ = false;
+    showControls_ = true;
+}
+
+// Cancels the pending file operation and returns to editing.
+void TextEditorUI::cancelPendingAction() {
+    mode_ = EditorMode::Editing;
+    pendingAction_ = PendingAction::None;
+    filePathInput_.clear();
+    pendingFilePath_.clear();
+    statusMessage_ = "Operation cancelled.";
 }
 
 // Converts text to a lowercase form for case-insensitive matching.
@@ -303,13 +523,78 @@ std::string TextEditorUI::buildFooterMessage() const {
             }
             return "Find: \"" + searchQuery_ + "\" | " + searchResultMessage_ +
                    " | Left: previous | Right: next | q: quit";
+        case EditorMode::FilePathPrompt: {
+            std::string prompt = pendingActionName() + ": " + filePathInput_ +
+                                 " | Enter: confirm | Escape: cancel";
+            if (!statusMessage_.empty()) {
+                prompt += " | " + statusMessage_;
+            }
+            return prompt;
+        }
         case EditorMode::Confirming:
-            return "Unsaved changes. Quit without saving? [y/n]";
+            switch (pendingAction_) {
+                case PendingAction::Quit:
+                    return "Unsaved changes. Quit without saving? [y/n]";
+                case PendingAction::Open:
+                    return "Unsaved changes. Open another file without saving? [y/n]";
+                case PendingAction::Reload:
+                    return "Unsaved changes. Reload from disk without saving? [y/n]";
+                case PendingAction::NewDocument:
+                    return "Unsaved changes. Create a new document without saving? [y/n]";
+                case PendingAction::SaveAs:
+                    return "File already exists. Overwrite it? [y/n]";
+                case PendingAction::None:
+                    return "Confirm operation? [y/n]";
+            }
         case EditorMode::Editing:
             return statusMessage_;
     }
 
     return {};
+}
+
+// Returns the editable cursor column for a prompt shown in the footer.
+std::optional<std::size_t> TextEditorUI::buildFooterCursorColumn() const {
+    switch (mode_) {
+        case EditorMode::FilePathPrompt:
+            return pendingActionName().size() + 2 + filePathInput_.size();
+        case EditorMode::SearchPrompt:
+            if (!searchActive_) {
+                return std::string("Search: ").size() + searchQuery_.size();
+            }
+            return std::nullopt;
+        case EditorMode::Confirming: {
+            const std::string prompt = buildFooterMessage();
+            const std::size_t choice = prompt.find("[y/n]");
+            return choice == std::string::npos
+                       ? std::nullopt
+                       : std::optional<std::size_t>(choice);
+        }
+        case EditorMode::Editing:
+            return std::nullopt;
+    }
+
+    return std::nullopt;
+}
+
+// Returns a user-facing name for a pending action.
+std::string TextEditorUI::pendingActionName() const {
+    switch (pendingAction_) {
+        case PendingAction::SaveAs:
+            return "Save As";
+        case PendingAction::Open:
+            return "Open file";
+        case PendingAction::NewDocument:
+            return "New file";
+        case PendingAction::Reload:
+            return "Reload file";
+        case PendingAction::Quit:
+            return "Quit";
+        case PendingAction::None:
+            return "File path";
+    }
+
+    return "File path";
 }
 
 // Shows the controls blurb below the welcome line on the first frame only.

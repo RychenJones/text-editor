@@ -49,3 +49,15 @@ target_include_directories(terminal_renderer_tests PRIVATE
 )
 
 add_test(NAME terminal_renderer_tests COMMAND terminal_renderer_tests)
+
+add_executable(file_storage_tests
+    tests/FileStorageTests.cpp
+    src/Document.cpp
+    src/FileStorage.cpp
+)
+
+target_include_directories(file_storage_tests PRIVATE
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+)
+
+add_test(NAME file_storage_tests COMMAND file_storage_tests)

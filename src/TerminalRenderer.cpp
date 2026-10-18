@@ -77,7 +77,8 @@ void TerminalRenderer::render(const Document& document,
                               const Viewport& viewport,
                               const std::string& statusBarMessage,
                               const std::string& statusMessage,
-                              const std::string& documentHelpMessage) const {
+                              const std::string& documentHelpMessage,
+                              std::optional<std::size_t> footerCursorColumn) const {
     std::cout << "\033[2J\033[H";
 
     // Draw only the lines and columns that fall inside the viewport.
@@ -129,7 +130,11 @@ void TerminalRenderer::render(const Document& document,
     std::cout << "\033[" << footerStart + 1 << ";1H\033[K";
     writeFooterLine(statusMessage);
 
-    positionCursor(cursor, viewport, showDocumentHelp ? helpLines.size() : 0);
+    if (footerCursorColumn.has_value()) {
+        positionFooterCursor(*footerCursorColumn, viewport);
+    } else {
+        positionCursor(cursor, viewport, showDocumentHelp ? helpLines.size() : 0);
+    }
     std::cout.flush();
 }
 
@@ -184,4 +189,13 @@ void TerminalRenderer::positionCursor(const CursorPosition& cursor,
                                    ? 1
                                    : std::min(visibleColumn + 1, viewport.width);
     std::cout << "\033[" << row << ';' << column << 'H';
+}
+
+// Moves the terminal cursor to an editable position in the footer.
+void TerminalRenderer::positionFooterCursor(std::size_t cursorColumn,
+                                             const Viewport& viewport) const {
+    const std::size_t column = viewport.width == 0
+                                   ? 1
+                                   : std::min(cursorColumn + 1, viewport.width);
+    std::cout << "\033[" << viewport.height + 2 << ';' << column << 'H';
 }

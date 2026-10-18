@@ -112,6 +112,26 @@ KeyEvent KeyReader::readKey() const {
         return {Key::Save};
     }
 
+    // Ctrl-A starts Save As.
+    if (*firstCharacter == 0x01) {
+        return {Key::SaveAs};
+    }
+
+    // Ctrl-O opens another file.
+    if (*firstCharacter == 0x0F) {
+        return {Key::Open};
+    }
+
+    // Ctrl-R reloads the active file from disk.
+    if (*firstCharacter == 0x12) {
+        return {Key::Reload};
+    }
+
+    // Ctrl-N starts a new document.
+    if (*firstCharacter == 0x0E) {
+        return {Key::NewDocument};
+    }
+
     if (*firstCharacter == 0x1A) {
         return {Key::Undo};
     }

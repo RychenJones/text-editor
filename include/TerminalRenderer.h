@@ -5,6 +5,8 @@
 #include "Document.h"
 #include "Viewport.h"
 
+#include <cstddef>
+#include <optional>
 #include <string>
 
 // Draws the document and editor messages in a terminal.
@@ -27,7 +29,8 @@ public:
                 const Viewport& viewport,
                 const std::string& statusBarMessage,
                 const std::string& statusMessage,
-                const std::string& documentHelpMessage) const;
+                const std::string& documentHelpMessage,
+                std::optional<std::size_t> footerCursorColumn = std::nullopt) const;
 
     // Redraws the visible document text and a single footer message.
     void render(const Document& document,
@@ -52,6 +55,10 @@ private:
     void positionCursor(const CursorPosition& cursor,
                         const Viewport& viewport,
                         std::size_t documentHelpLineCount) const;
+
+    // Moves the terminal cursor to an editable position in the footer.
+    void positionFooterCursor(std::size_t cursorColumn,
+                              const Viewport& viewport) const;
 };
 
 #endif // TERMINAL_RENDERER_H
